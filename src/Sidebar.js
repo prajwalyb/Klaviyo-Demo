@@ -35,29 +35,34 @@ export const Sidebar = () =>(
         </Message>
         <SidebarItem
             bg="white"
-            type="Email"        
+            text="Email"
+            id='email'
         />
         <SidebarItem
             bg="white"
-            type="Update Profile Property"
+            text="Update Profile Property"
+            id='updateProfile'
         />
         <Message>
             Timming
         </Message>
         <SidebarItem
             bg="#ECF3F5"
-            type="Time Delay"
+            text="Time Delay"
+            id='timeDelay'
             />
         <Message>
             Logic
         </Message>
         <SidebarItem
             bg="#D9E0E7"
-            type="Conditional split"     
+            text="Conditional split"     
+            id='conditionalSplit'
         />
         <SidebarItem
             bg="#D9E0E7"
-            type="Trigger Split"
+            text="Trigger Split"
+            id='Trigger Split'
             />
     </Sidepanel>
 )

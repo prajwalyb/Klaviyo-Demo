@@ -7,8 +7,8 @@ import { Sidebar } from './Sidebar'
 function App() {
   return (
     <div className="App">
-      <Sidebar/>
       <DndProvider backend={Backend} >
+        <Sidebar/>
         <Flowchart/>
       </DndProvider>
     </div>
