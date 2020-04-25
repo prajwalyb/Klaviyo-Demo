@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState ,useRef } from 'react'
 import Card from './Card'
 import update from 'immutability-helper'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
+import { findDOMNode } from 'react-dom';
+
 
 const style = {
   height: '100vh',
@@ -31,45 +33,52 @@ const Dustbin = () => {
         text: 'Exit',
       }
     ])
-  const [{ canDrop, isOver }, drop] = useDrop({
+  const ref = useRef(null);
+  const [{ isOver ,index}, drop] = useDrop({
     accept: ItemTypes.SIDEITEM,
-    drop(item, monitor) {
-      cards.push(
-        {
-          id:item.id,
-          text:item.text
-        }
-      )      
+    drop(item, monitor) {      
+      setCards(prevState => {
+          const newItems = prevState
+              .concat({ ...item });
+          return [ ...newItems ];
+      });
+      // cards.push(
+      //   {
+      //     id:item.id,
+      //     text:item.text
+      //   }
+      // )      
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),
   })
+
   const moveCard = (dragIndex, hoverIndex) => {
-    //console.log(cards)
-      const dragCard = cards[dragIndex]
-      setCards(
-        update(cards, {
-          $splice: [
-            [dragIndex, 1],
-            [hoverIndex, 0, dragCard],
-          ],
-        }),
-      )
-    }
+        const item = cards[dragIndex];
+        setCards(prevState => {
+            const newItems = prevState.filter((i, idx) => idx !== dragIndex);
+            newItems.splice(hoverIndex, 0, item);           
+            return  [ ...newItems ];
+        });
+    };
+
   return (
-    <div ref={drop} style={{ ...style}}>
-      {cards.map((card, i) => (
-        <Card
-          key={card.id}
-          index={i}
-          id={card.id}
-          text={card.text}
-          moveCard={moveCard}
-        />
-      ))}
-    </div>
+      <div ref={drop} style={{ ...style }}>
+        {
+          cards.map((card, i) => (
+            <Card
+              key={card.id}
+              index={i}
+              id={card.id}
+              text={card.text}
+              moveCard={moveCard}
+            />    
+          ))             
+        }
+         
+      </div>
   )
 }
 export default Dustbin

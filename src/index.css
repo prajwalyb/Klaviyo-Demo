@@ -1,0 +1,15 @@
+body{
+    background-color:#F6F8F9;
+    font-family: proxima-nova,Lato,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 18px;
+}
+.placed-component-body{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+.line{
+    border-left: 2px solid #BAC2CA;
+    height: 50px;
+    margin-left:145px
+}

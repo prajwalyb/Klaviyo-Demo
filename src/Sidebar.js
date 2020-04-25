@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { SidebarItem } from "./Sidebaritem" 
 
 const Sidepanel = styled.div`
+    height:100vh;
     position: fixed;
     order: -1;
     flex: 0 0 350px;
@@ -28,7 +29,7 @@ const Message = styled.div`
     margin: 32px 0 8px 0;
 `
 
-export const Sidebar = () =>(
+export const Sidebar = ({moveCard}) =>(
     <Sidepanel>
         <Message>
             Actions
