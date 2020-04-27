@@ -13,3 +13,30 @@ body{
     height: 50px;
     margin-left:145px
 }
+
+/* Side Panel Item */
+.placed-component-icon-container{
+    margin: 0 16px;
+    color: #606A72;
+}
+.placed-component-icon-background{
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F2F4F5;
+    border-radius: 100%;
+}   
+.icon{
+    font-style: normal;
+    font-weight: 400;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+}

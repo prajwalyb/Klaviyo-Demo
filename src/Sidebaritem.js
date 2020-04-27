@@ -2,6 +2,8 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { useDrag } from 'react-dnd'
 import ItemTypes from './ItemTypes'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortawesome/free-solid-svg-icons'
 
 const Outer = styled.div`
   background: #FFF;
@@ -28,8 +30,25 @@ export const SidebarItem = ({ text, bg , id , index}) => {
         isDragging: monitor.isDragging(),
         }),
     })
+    var icon=faBolt;
+    if(id==='email')
+        icon=faEnvelope
+    if(id==='updateProfile')
+        icon=faUser
+    if(id==='timeDelay')
+        icon=faClock 
+    if(id==='conditionalSplit'|| id==='triggerSplit')
+        icon=faCodeBranch
     return (
         <Outer ref={drag}  style={{background: bg}}>
+        <div className="placed-component-icon-container">
+            <div className="placed-component-icon-background" >
+                <FontAwesomeIcon icon={icon} className="icon"/>
+            </div>
+        </div>
+            
+
+            
             {text}
         </Outer>
     )
