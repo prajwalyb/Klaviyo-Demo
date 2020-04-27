@@ -3,7 +3,6 @@ import Card from './Card'
 import update from 'immutability-helper'
 import { useDrop } from 'react-dnd'
 import ItemTypes from './ItemTypes'
-import { findDOMNode } from 'react-dom';
 
 
 const style = {
@@ -33,7 +32,9 @@ const Dustbin = () => {
         text: 'Exit',
       }
     ])
+  
   const ref = useRef(null);
+
   const [{ isOver ,index}, drop] = useDrop({
     accept: ItemTypes.SIDEITEM,
     drop(item, monitor) {      
@@ -41,13 +42,7 @@ const Dustbin = () => {
           const newItems = prevState
               .concat({ ...item });
           return [ ...newItems ];
-      });
-      // cards.push(
-      //   {
-      //     id:item.id,
-      //     text:item.text
-      //   }
-      // )      
+      }); 
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -63,7 +58,7 @@ const Dustbin = () => {
             return  [ ...newItems ];
         });
     };
-
+  
   return (
       <div ref={drop} style={{ ...style }}>
         {

@@ -23,13 +23,6 @@ const Outer = styled.div`
 `
 
 export const SidebarItem = ({ text, bg , id , index}) => {
-
-    const [{ isDragging }, drag] = useDrag({
-        item: { id, text, type: ItemTypes.SIDEITEM },
-        collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-        }),
-    })
     var icon=faBolt;
     if(id==='email')
         icon=faEnvelope
@@ -39,6 +32,14 @@ export const SidebarItem = ({ text, bg , id , index}) => {
         icon=faClock 
     if(id==='conditionalSplit'|| id==='triggerSplit')
         icon=faCodeBranch
+
+    const [{ isDragging }, drag] = useDrag({
+        item: { id, text, type: ItemTypes.SIDEITEM },
+        collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+        }),
+    })
+
     return (
         <Outer ref={drag}  style={{background: bg}}>
         <div className="placed-component-icon-container">
@@ -46,10 +47,9 @@ export const SidebarItem = ({ text, bg , id , index}) => {
                 <FontAwesomeIcon icon={icon} className="icon"/>
             </div>
         </div>
-            
-
-            
+        <div className="placed-component-body">
             {text}
+        </div>
         </Outer>
     )
 }
