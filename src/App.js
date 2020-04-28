@@ -1,16 +1,9 @@
 import React from 'react';
-import Flowchart from './Flowchart'
-import { DndProvider } from 'react-dnd'
-import Backend from 'react-dnd-html5-backend'
-import { Sidebar } from './Sidebar'
-
+import Flow from './pages/flows'
 function App() {
   return (
-    <div >
-      <DndProvider backend={Backend} >
-        <Sidebar/>
-        <Flowchart/>
-      </DndProvider>
+    <div>
+      <Flow/>
     </div>
   );
 }
