@@ -6,7 +6,7 @@ import { Sidebar } from './Sidebar'
 
 function App() {
   return (
-    <div className="App">
+    <div >
       <DndProvider backend={Backend} >
         <Sidebar/>
         <Flowchart/>
