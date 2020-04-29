@@ -1,0 +1,53 @@
+[33mcommit 616fe93561bbbdddc174fd1a4d14a3b6d498094b[m[33m ([m[1;36mHEAD -> [m[1;32mflowchart[m[33m)[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Wed Apr 29 18:15:56 2020 +0530
+
+    navbar added for dashoard
+
+[33mcommit 40a4d1602364faec1592e7d5c96ff22a2ff48813[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Tue Apr 28 23:08:35 2020 +0530
+
+    flies restructured
+
+[33mcommit 92097efc136d04d952570142946a18245fe9289e[m[33m ([m[1;32mmaster[m[33m)[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Tue Apr 28 22:08:12 2020 +0530
+
+    test
+
+[33mcommit 3529b083c7e27f94e9ae27a251addd60b1992e36[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Mon Apr 27 23:08:42 2020 +0530
+
+    flowchart redesigned
+
+[33mcommit 5c3f1a6d74fb2d3e9c5510d566921b4f31fdecd5[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Mon Apr 27 22:25:35 2020 +0530
+
+    sidebar redesignmed
+
+[33mcommit 20eaeda85529e6e4b2f0ee2bc3626c8631a077b2[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Sat Apr 25 22:26:12 2020 +0530
+
+    designing done with simple function implementation
+
+[33mcommit f3e4bff748865257c7561593ed87530b6a4d23b2[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Fri Apr 24 23:03:33 2020 +0530
+
+    drag element from sidebar to flowchart added
+
+[33mcommit ab533e19262ec3f15968890bafba9a5ddb6aab30[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Thu Apr 23 18:13:36 2020 +0530
+
+    basic structure added
+
+[33mcommit 4ef01ad30a660774165211134f544fe2eae896cb[m
+Author: alankritgupta091099 <alankritgupta091099@gmail.com>
+Date:   Thu Apr 23 16:28:51 2020 +0530
+
+    Initialize project using Create React App

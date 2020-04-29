@@ -57,7 +57,55 @@ body{
     color: #DFE3E6;
     font-size: 16px;
 }
-/* Side Panel Item */
+/* Main Sidepanel */
+.list{
+    position: relative;
+    margin: 0;
+    padding: 2px 0 2px 0;
+}
+.list a{
+    color: #373F47;
+    font-weight: 400;
+    padding: 0 16px;
+    text-shadow: none;
+    margin: 0;
+    height: 32px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    line-height: 32px;
+    font-size: 14px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-decoration: none;
+    border: none;
+    background: 0 0;
+    outline: 0;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.list-link .icon{
+    margin-right: 8px;
+    display: inline-block;
+    width: 18px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 18px;
+    color: #606A72;
+}
+.icon{
+    font: normal normal normal 14px/1 FontAwesome4;
+}
+.list-section{
+    border-top: 1px solid #BAC2CA;
+    margin: 0 16px 0 0;
+    padding: 14px 0 14px 0;
+}
+
+/*Flowchart Side Panel Item */
 .placed-component-icon-container{
     margin: 0 16px;
     color: #606A72;
