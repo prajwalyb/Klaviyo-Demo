@@ -1,9 +1,10 @@
 import React from 'react';
-import Flow from './pages/flows'
+import NavComp from './components/MainNavbar.js'
+
 function App() {
   return (
     <div>
-      <Flow/>
+      <NavComp/>
     </div>
   );
 }
