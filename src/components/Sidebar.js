@@ -4,7 +4,7 @@ import { SidebarItem } from "./Sidebaritem"
 
 const Sidepanel = styled.div`
         height:100vh;
-        position: fixed;
+        position: absolute;
         order: -1;
         flex: 0 0 350px;
         padding: 32px;

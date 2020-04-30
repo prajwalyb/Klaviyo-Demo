@@ -1,13 +1,18 @@
 import React from 'react';
-import NavComp from './components/MainNavbar.js';
-import {MainSidebar} from './components/MainSidebar.js';
+import { Switch , Route , Link } from "react-router-dom";
+import Dashboard from './pages/dashboard.js';
+import Flow from './pages/flows.js';
 
 function App() {
   return (
-    <div>
-      <NavComp/>
-      <MainSidebar/>
-    </div>
+    <Switch>
+      <Route path="/React-DND-Flowchart" exact>
+        <Dashboard/>
+      </Route>
+      <Route path="/React-DND-Flowchart/flow">
+        <Flow />
+      </Route>
+    </Switch>
   );
 }
 
