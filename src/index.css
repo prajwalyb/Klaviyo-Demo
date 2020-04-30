@@ -15,10 +15,20 @@ body{
 }
 
 /*Navbar*/
+.navsearch{
+    background: #373F47;
+    color: #91979F;
+    width: 200px;
+    border: 1px solid #606A72;
+    padding: 4px 24px 4px 8px;
+    line-height: 18px;
+    height: 32px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 .topbar{
     background: #373F47;
     color: #DFE3E6;
-    height: 64px;
     position: relative;
     z-index: 3;
     font-size: 13px;
@@ -55,8 +65,15 @@ body{
     padding: 0 16px;
     display: block;
     color: #DFE3E6;
-    font-size: 16px;
+    font-size: 14px;
+    text-transform: none;
 }
+.Nav .NavItem .NavLink:hover{
+    color:#DFE3E6;
+    background:#4B545C;
+    
+}
+
 /* Main Sidepanel */
 .list{
     position: relative;
