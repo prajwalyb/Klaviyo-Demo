@@ -6,9 +6,6 @@ import Flow from './pages/flows.js';
 function App() {
   return (
     <Switch>
-    <Route path="/">
-        <Dashboard/>
-      </Route>
       <Route path="/React-DND-Flowchart" exact>
         <Dashboard/>
       </Route>
