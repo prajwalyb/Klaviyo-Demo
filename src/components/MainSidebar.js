@@ -33,7 +33,7 @@ const Sidepanel = styled.div`
             <MainSidebarItem
                 text="Email Templates"     
                 id='emailtemplate'
-                href='/React-DND-Flowchart'
+                href='/React-DND-Flowchart/email-templates'
             />
         </div>
         <div className="list-section">
