@@ -21,7 +21,7 @@ const NavComp = (props) => {
         <div className="container-fluid">
             <Navbar light expand="md" >
                 <div className="header-secondary-container">
-                    <NavbarBrand href="/React-DND-Flowchart" style={{color: '#DFE3E6'}}>Klaviyo</NavbarBrand>
+                    <NavbarBrand href="/" style={{color: '#DFE3E6'}}>Klaviyo</NavbarBrand>
                     <input
                         type="text"
                         placeholder="Search for Someone"
@@ -33,16 +33,16 @@ const NavComp = (props) => {
                 <Collapse isOpen={isOpen} navbar className="nav">
                     <Nav className="ml-auto Nav" navbar>
                         <NavItem className="NavItem">
-                            <NavLink href="/React-DND-Flowchart" className="NavLink">Upgrade</NavLink>
+                            <NavLink href="/" className="NavLink">Upgrade</NavLink>
                         </NavItem>
                         <NavItem className="NavItem">
-                            <NavLink className="NavLink" href="/React-DND-Flowchart">Support</NavLink>
+                            <NavLink href="/" className="NavLink">Support</NavLink>
                         </NavItem>            
                         <NavItem className="NavItem">
-                            <NavLink href="/React-DND-Flowchart" className="NavLink">Blog</NavLink>
+                            <NavLink href="/" className="NavLink">Blog</NavLink>
                         </NavItem>
                         <NavItem className="NavItem">
-                            <NavLink href="/React-DND-Flowchart" className="NavLink">Account</NavLink>
+                            <NavLink href="/" className="NavLink">Account</NavLink>
                         </NavItem>                        
                     </Nav>
                 </Collapse>

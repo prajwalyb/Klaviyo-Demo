@@ -10,16 +10,16 @@ import EmailTemplate from './pages/emailLayout.js';
 function App() {
   return (
     <Switch>
-      <Route path="/React-DND-Flowchart" exact>
+      <Route path="/" exact>
         <Dashboard/>
       </Route>
-      <Route path="/React-DND-Flowchart/flow" exact>
+      <Route path="/flow" exact>
         <Flow />
       </Route>
-      <Route path="/React-DND-Flowchart/email-templates" exact>
+      <Route path="/email-templates" exact>
         <Email />
       </Route>
-      <Route path="/React-DND-Flowchart/email-templates/create" exact>
+      <Route path="/email-templates/create" exact>
         <EmailTemplate/>
       </Route>
     </Switch>

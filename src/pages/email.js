@@ -12,7 +12,7 @@ class Email extends React.Component {
         <div id="main">
             <div className="dashboard-nav-header">
                 <p>Email Templates</p>
-                <a className="btn btn-primary" href="/React-DND-Flowchart/email-templates/create">Create Template</a>
+                <a className="btn btn-primary" href="/email-templates/create">Create Template</a>
                 <div className="dashboard-nav-footer"></div>
             </div>  
         </div>

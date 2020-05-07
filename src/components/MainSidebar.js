@@ -16,77 +16,77 @@ const Sidepanel = styled.div`
             <MainSidebarItem
                 text="Dashboard"
                 id='dashboard'
-                href='/React-DND-Flowchart'
+                href='/'
             />
         </div>
         <div className="list-section">
             <MainSidebarItem
                 text="Campaigns"
                 id='campaigns'
-                href='/React-DND-Flowchart'
+                href='/'
             />
             <MainSidebarItem
                 text="Flows"
                 id='flows'
-                href='/React-DND-Flowchart/flow'
+                href='/flow'
                 />
             <MainSidebarItem
                 text="Email Templates"     
                 id='emailtemplate'
-                href='/React-DND-Flowchart/email-templates'
+                href='/email-templates'
             />
         </div>
         <div className="list-section">
             <MainSidebarItem
                 text="Lists & Segments"
                 id='listsegments'
-                href='/React-DND-Flowchart'
+                href='/'
             />
             <MainSidebarItem
                 text="Profiles"
                 id='profiles'
-                href='/React-DND-Flowchart'
+                href='/'
             />
             <MainSidebarItem
                 text="Metrics"
                 id='metrics'
-                href='/React-DND-Flowchart'
+                href='/'
             />    
             </div>
         <div className="list-section">    
             <MainSidebarItem
                 text="Integrations"
                 id='integrations'
-                href='/React-DND-Flowchart'
+                href='/'
             />
             <MainSidebarItem
                 text="Data Feed"
                 id='datafeed'
-                href='/React-DND-Flowchart'
+                href='/'
             />
         </div>
         <div className="list-section">
             <MainSidebarItem
                 text="Signup Forms"
                 id='signupforms'
-                href='/React-DND-Flowchart'
+                href='/'
             />
             <MainSidebarItem
                 text="Preference pages"
                 id='prefpages'
-                href='/React-DND-Flowchart'
+                href='/'
             />
         </div>
         <div className="list-section">
             <MainSidebarItem
                 text="Image Library"
                 id='imagelibrary'
-                href='/React-DND-Flowchart'
+                href='/'
             />
             <MainSidebarItem
                 text="Tags"
                 id='tags'
-                href='/React-DND-Flowchart'
+                href='/'
             />
         </div>
     </Sidepanel>
