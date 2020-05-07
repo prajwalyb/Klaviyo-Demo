@@ -1,5 +1,4 @@
 import React from 'react';
-import DashboardNav from '../components/DashboardNav';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
 
@@ -10,7 +9,16 @@ class Dashboard extends React.Component {
         <NavComp/>
         <MainSidebar/>
         <div id="main">
-            <DashboardNav/>
+            <div className="dashboard-nav-header">
+                <p>Dashboard</p>
+            </div>            
+            <div className="dashboard-nav-footer">
+                <div className="dashboard-nav-footer-component">Objectives</div>
+                <div className="dashboard-nav-footer-component">Performance</div>
+                <div className="dashboard-nav-footer-component">Analytics</div>
+                <div className="dashboard-nav-footer-component">Lists and Analytics</div>
+                <div className="dashboard-nav-footer-component">Adtivity Feed</div>
+            </div>
             <div className="dashboard-body">
               <div className="dashboard-card">
                 <div className="dashboard-card-header">
