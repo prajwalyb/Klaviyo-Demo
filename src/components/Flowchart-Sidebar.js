@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { FlowChartWithState } from '@mrblenny/react-flow-chart'
+
 import { Page } from './Flowchart-Page'
 import { SidebarItem } from './Flowchart-SideBarItem'
 import { chartSimple } from './DefaultChart'
@@ -46,6 +47,13 @@ export const DragAndDropSidebar = () => (
         initialValue={chartSimple} 
         config={{
             snapToGrid: true,
+            validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
+            if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
+            else{
+              alert('Can not connect nodes')
+              return false
+            }
+          }
           }}
         />
     </Content>
@@ -59,11 +67,17 @@ export const DragAndDropSidebar = () => (
         ports={{
           port1: {
             id: 'port1',
-            type: 'input'
+            type: 'top',
+            properties: {
+              custom: 'property',
+            }
           },
           port2: {
             id: 'port2',
-            type: 'output'
+            type: 'bottom',
+            properties: {
+              custom: 'property',
+            }
           }
         }}        
       />
@@ -73,17 +87,17 @@ export const DragAndDropSidebar = () => (
         ports={ {
           port1: {
             id: 'port1',
-            type: 'input',
+            type: 'top',
             properties: {
               custom: 'property',
-            },
+            }
           },
           port2: {
             id: 'port2',
-            type: 'output',
+            type: 'bottom',
             properties: {
               custom: 'property',
-            },
+            }
           },
         }}        
       />
@@ -96,11 +110,17 @@ export const DragAndDropSidebar = () => (
         ports={ {
           port1: {
             id: 'port1',
-            type: 'input'
+            type: 'top',
+            properties: {
+              custom: 'property',
+            }
           },
           port2: {
             id: 'port2',
-            type: 'output'
+            type: 'bottom',
+            properties: {
+              custom: 'property',
+            }
           },
         }}        
       />
@@ -113,11 +133,17 @@ export const DragAndDropSidebar = () => (
         ports={ {
           port1: {
             id: 'port1',
-            type: 'input'
+            type: 'top',
+            properties: {
+              custom: 'property',
+            }
           },
           port2: {
             id: 'port2',
-            type: 'output'
+            type: 'bottom',
+            properties: {
+              custom: 'property',
+            }
           },
         }}        
       />
@@ -127,11 +153,17 @@ export const DragAndDropSidebar = () => (
         ports={ {
           port1: {
             id: 'port1',
-            type: 'input'
+            type: 'top',
+            properties: {
+              custom: 'property',
+            }
           },
           port2: {
             id: 'port2',
-            type: 'output'
+            type: 'bottom',
+            properties: {
+              custom: 'property',
+            }
           },
         }}        
       />

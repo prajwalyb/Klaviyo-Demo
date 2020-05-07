@@ -26,11 +26,11 @@ export const SidebarItem = ({ type, ports , properties , bg}) => {
   var icon=faBolt;
     if(type==='Email')
         icon=faEnvelope
-    if(type==='Update Profile Property')
+    else if(type==='Update Profile Property')
         icon=faUser
-    if(type==='Time Delay')
+    else if(type==='Time Delay')
         icon=faClock 
-    if(type==='Conditional split'|| type==='Trigger Split')
+    else if(type==='Conditional split'|| type==='Trigger Split')
         icon=faCodeBranch
   return (
     <Outer

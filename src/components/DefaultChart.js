@@ -6,15 +6,15 @@ export const chartSimple = {
     nodes: {
       node1: {
         id: "node1",
-        type: "Start",
+        type: "When someone Active on Site",
         position: {
-          x: 400,
+          x: 340,
           y: 100
         },
         ports: {
           port1: {
             id: "port1",
-            type: "output",
+            type: "bottom",
             properties: {
               value: "yes"
             }
@@ -31,7 +31,7 @@ export const chartSimple = {
         ports: {
           port1: {
             id: "port1",
-            type: "input"
+            type: "top"
           }
         }
       }
