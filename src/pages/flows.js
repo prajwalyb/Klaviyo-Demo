@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortawesome/free-solid-svg-icons'
-import { FlowChartWithState , INodeDefaultProps} from '@mrblenny/react-flow-chart'
+import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps , actions } from '@mrblenny/react-flow-chart'
 
 import { chartSimple } from '../components/DefaultChart'
 import NavComp from '../components/MainNavbar.js';
@@ -67,6 +67,16 @@ const CanvasOuterCustom = styled.div`
   width: 100%;
   height: 100%;
 `
+const PortDefaultOuter = styled.div`
+  width: 16px;
+  height: 16px;
+  background: #BAC2CA;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius:50%;
+`
 
 const NodeCustom = React.forwardRef(({ node, children, ...otherProps }: INodeDefaultProps, ref: React.Ref<HTMLDivElement>) => {
   if (node.type === 'Email' || node.type === 'Update Profile Property') {
@@ -98,35 +108,75 @@ const NodeCustom = React.forwardRef(({ node, children, ...otherProps }: INodeDef
   }
 })
 
-function Flow() {
-  return (
-    <>
-      <NavComp/>
-      <Page>
-          <DragAndDropSidebar/>
-          <FlowChartWithState 
-            initialValue={chartSimple} 
-            config={{
-                snapToGrid: true,
-                validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
-                console.log(chart.nodes[fromNodeId].type)
-                if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
-                else if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' || chart.nodes[toNodeId].ports[toPortId].type === 'top') return false
-                else{
-                  alert('Can not connect nodes')
-                  return false
+const NodeInnerCustom = ({ node, config }: INodeInnerDefaultProps) => {
+  var icon;
+  if (node.type === 'When someone Active on Site') 
+    icon=faBolt;
+  else if (node.type === 'Email')
+    icon=faEnvelope
+  else if (node.type === 'Update Profile Property')
+    icon=faUser
+  else if (node.type === 'Time Delay')
+  icon=faClock
+  else if (node.type === 'Conditional split' || node.type === 'Trigger split')
+    icon=faCodeBranch
+  if (icon) 
+    return (
+      <div className="placed-component-body" style={{marginTop:'10px'}}>
+        <div className="placed-component-icon-container">
+            <div className="placed-component-icon-background">
+                <FontAwesomeIcon icon={ icon} className="icon"/>
+            </div>
+        </div>
+        {node.type}
+      </div>
+    )
+  else return <div style={{margin:'10px'}}>{node.type}</div>
+  
+}
+
+const PortCustom = (props: IPortDefaultProps) => (
+  <PortDefaultOuter>
+    { props.port.properties && (
+      <svg style={{ width: '24px', height: '24px' }} viewBox="0 0 24 24">
+        <path fill="white" d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+      </svg>
+    )}
+  </PortDefaultOuter>
+)
+
+class Flow extends React.Component {
+  render () {
+    return (
+      <>
+        <NavComp/>
+        <Page>
+            <DragAndDropSidebar/>
+            <FlowChartWithState 
+              initialValue={chartSimple} 
+              config={{
+                  smartRouting: true ,
+                  snapToGrid: true,
+                  validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
+                  console.log(chart.nodes[fromNodeId].type)
+                  if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
+                  else{
+                    return false
+                  }
                 }
-              }
               }}
-            Components={ {
-              Node: NodeCustom,
-              CanvasOuter: CanvasOuterCustom
-            }}
-            />
-        
-      </Page>
-    </>
-  );
+              Components={ {
+                Node: NodeCustom,
+                CanvasOuter: CanvasOuterCustom,
+                Port: PortCustom,
+                NodeInner: NodeInnerCustom,
+              }}
+              />
+          
+        </Page>
+      </>
+    )
+  }
 }
 
 export default Flow;

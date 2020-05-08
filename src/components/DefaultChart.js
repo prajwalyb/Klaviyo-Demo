@@ -8,7 +8,7 @@ export const chartSimple = {
         id: "node1",
         type: "When someone Active on Site",
         position: {
-          x: 315,
+          x: 370,
           y: 100
         },
         ports: {
@@ -16,7 +16,7 @@ export const chartSimple = {
             id: "port1",
             type: "bottom",
             properties: {
-              value: "yes"
+              linkColor: '#BAC2CA',
             }
           }
         }
@@ -25,13 +25,16 @@ export const chartSimple = {
         id: "node2",
         type: "End",
         position: {
-          x: 400,
+          x: 500,
           y: 300
         },
         ports: {
           port1: {
             id: "port1",
-            type: "top"
+            type: "top",
+            properties: {
+              linkColor: '#BAC2CA',
+            }
           }
         }
       }

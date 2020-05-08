@@ -52,6 +52,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           }
         }}        
@@ -72,6 +73,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           },
         }}        
@@ -95,6 +97,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           },
         }}        
@@ -118,6 +121,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           },
           port3: {
@@ -125,6 +129,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           }
         }}        
@@ -145,6 +150,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           },
           port3: {
@@ -152,6 +158,7 @@ export const DragAndDropSidebar = () => (
             type: 'bottom',
             properties: {
               custom: 'property',
+              linkColor: '#BAC2CA',
             }
           }
         }}        
