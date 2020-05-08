@@ -8,7 +8,7 @@ export const chartSimple = {
         id: "node1",
         type: "When someone Active on Site",
         position: {
-          x: 340,
+          x: 315,
           y: 100
         },
         ports: {

@@ -1,10 +1,8 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { FlowChartWithState } from '@mrblenny/react-flow-chart'
 
 import { Page } from './Flowchart-Page'
 import { SidebarItem } from './Flowchart-SideBarItem'
-import { chartSimple } from './DefaultChart'
 
 const Message = styled.div`
     letter-spacing: .5px;
@@ -15,14 +13,6 @@ const Message = styled.div`
     color: #606A72;
     margin: 32px 0 8px 0;
 `
-
-const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-`
-
 const Sidebar = styled.div`
     order: -1;
     overflow-y: auto;
@@ -41,22 +31,7 @@ const Sidebar = styled.div`
 `
 
 export const DragAndDropSidebar = () => (
-  <Page>
-    <Content>
-      <FlowChartWithState 
-        initialValue={chartSimple} 
-        config={{
-            snapToGrid: true,
-            validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
-            if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
-            else{
-              alert('Can not connect nodes')
-              return false
-            }
-          }
-          }}
-        />
-    </Content>
+  <Page>    
     <Sidebar>
       <Message>
         Actions
@@ -145,6 +120,13 @@ export const DragAndDropSidebar = () => (
               custom: 'property',
             }
           },
+          port3: {
+            id: 'port3',
+            type: 'bottom',
+            properties: {
+              custom: 'property',
+            }
+          }
         }}        
       />
       <SidebarItem
@@ -165,6 +147,13 @@ export const DragAndDropSidebar = () => (
               custom: 'property',
             }
           },
+          port3: {
+            id: 'port3',
+            type: 'bottom',
+            properties: {
+              custom: 'property',
+            }
+          }
         }}        
       />
     </Sidebar>
