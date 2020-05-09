@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortawesome/free-solid-svg-icons'
 import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps , actions } from '@mrblenny/react-flow-chart'
+import axios from 'axios';
 
 import { chartSimple } from '../components/DefaultChart'
 import NavComp from '../components/MainNavbar.js';
@@ -146,14 +147,37 @@ const PortCustom = (props: IPortDefaultProps) => (
 )
 
 class Flow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flow:chartSimple
+    };
+  }
+
+  saveFlow =(e)=>{
+    e.preventDefault();
+    const res=axios({
+      method:'POST',
+      url:'http://localhost:8080/flows',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      data:{
+        flow:this.state.flow
+      }
+    })
+    console.log('Flow saved')
+  }
+
   render () {
     return (
       <>
         <NavComp/>
+          <button className="btn btn-primary" onClick={this.saveFlow}>Save</button>
         <Page>
             <DragAndDropSidebar/>
             <FlowChartWithState 
-              initialValue={chartSimple} 
+              initialValue={this.state.flow} 
               config={{
                   smartRouting: true ,
                   snapToGrid: true,
@@ -171,8 +195,7 @@ class Flow extends React.Component {
                 Port: PortCustom,
                 NodeInner: NodeInnerCustom,
               }}
-              />
-          
+              />      
         </Page>
       </>
     )
