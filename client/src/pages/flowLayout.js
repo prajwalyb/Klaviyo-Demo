@@ -9,7 +9,7 @@ import { chartSimple } from '../components/DefaultChart'
 import FlowNavBar from '../components/FlowNavBar.js';
 import { Page } from '../components/Flowchart-Page'
 import { DragAndDropSidebar } from '../components/Flowchart-Sidebar'
-
+import { API_URL } from '../helpers/utils.js';
 
 const DefaultNode = styled.div`
   position: absolute;
@@ -158,7 +158,7 @@ class Flow extends React.Component {
     e.preventDefault();
     const res=axios({
       method:'POST',
-      url:'http://localhost:80801/flows',
+      url:`${API_URL}/flows`,
       headers: {
         'Content-type': 'application/json'
       },

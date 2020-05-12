@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios'
+import { API_URL } from '../helpers/utils.js';
 
 export class Login extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export class Login extends Component {
             email:this.state.email,
             password:this.state.password
         }
-        axios.post('http://localhost:8081/users/login',{
+        axios.post(`${API_URL}/users/login`,{
             email:user.email,
             password:user.password
         })

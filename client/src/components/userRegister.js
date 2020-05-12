@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter} from 'react-router-dom';
 import axios from 'axios'
+import { API_URL } from '../helpers/utils.js';
 
 export class Register extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export class Register extends Component {
             email:this.state.email,
             password:this.state.password
         }
-        axios.post('http://localhost:8081/users/register',{
+        axios.post(`${API_URL}/users/register`,{
             first_name:newUser.first_name,
             last_name:newUser.last_name,
             email:newUser.email,
