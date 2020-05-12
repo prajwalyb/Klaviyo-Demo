@@ -23,9 +23,6 @@ class App extends React.Component {
       <Route path="/register">
         <Register/>
       </Route>        
-      {/* <Route path="/logout">
-        <Logout/>
-      </Route>         */}
       <ProtectedRoute exact path="/" component={Dashboard} />
       <ProtectedRoute exact path="/logout" component={Logout} />
       <ProtectedRoute exact path="/flow" component={Flow} />

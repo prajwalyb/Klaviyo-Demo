@@ -22,6 +22,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 const PORT = process.env.PORT || 8081;
 
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static('client/build'))
+}
+
 app.listen(PORT,()=>{
     console.log('server started at port: ',PORT);
 });
