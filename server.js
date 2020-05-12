@@ -7,9 +7,7 @@ const bodyParser=require('body-parser');
 const cors=require('cors');
 
 var app = express();
-app.use(cors({
-    origin:'https://klaviyo-demo.herokuapp.com/'
-}));
+app.use(cors({}));
 
 //Import All Middlewares Here
 const auth = require('./middlewares/auth.js');
