@@ -1,7 +1,6 @@
 import React from 'react';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
-import { NavLink } from 'react-router-dom';
 
 
 class Flow extends React.Component {

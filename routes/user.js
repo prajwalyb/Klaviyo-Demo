@@ -24,14 +24,14 @@ router.post('/register',(req,res)=>{
                 userData.password=hash;
                 User.create(userData)
                 .then(user=>{
-                    res.json({status:user.email+' registered!'})
+                    res.status(200).json({status:user.email+' registered!'})
                 })
                 .catch(err=>{
-                    res.json({error: err})
+                    res.statue(400).json({error: err})
                 })
             })
         }else{
-            res.json({error:'User already exists'});
+            res.status(409).json({error:'User already exists'});
         }
     })
     .catch(err=>{
@@ -53,15 +53,15 @@ router.post('/login',(req,res)=>{
                     email:user.email
                 }
                 let token = jwt.sign(payload, config.SECRET_KEY)
-                res.header('x-auth-token',token).status(200).send()
-                //res.send(token);
+                //res.header('x-auth-token',token).status(200).send()
+                res.status(200).send(token);
             }
             else{
-                res.json({error:'Invalid Password'})
+                res.status(401).json({error:'Wrong Password'})
             }
         }
         else{
-            res.json({error:'User Does not exist'})
+            res.status(208).json({error:'User Does not exist'})
         }
     })
     .catch(err=>{

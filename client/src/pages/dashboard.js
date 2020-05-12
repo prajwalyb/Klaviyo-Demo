@@ -2,7 +2,7 @@ import React from 'react';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
 
-class Dashboard extends React.Component {
+class Dashboard extends React.Component {  
   render() {
     return (
       <React.Fragment>

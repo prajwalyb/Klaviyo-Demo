@@ -39,7 +39,7 @@ const NavComp = (props) => {
                             <NavLink href="/" className="NavLink">Support</NavLink>
                         </NavItem>            
                         <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Blog</NavLink>
+                            <NavLink href="/logout" className="NavLink">Log Out</NavLink>
                         </NavItem>
                         <NavItem className="NavItem">
                             <NavLink href="/" className="NavLink">Account</NavLink>

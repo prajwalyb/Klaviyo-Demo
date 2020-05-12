@@ -1,7 +1,6 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faPaperPlane , faNewspaper , faStream , faCodeBranch ,faUsers , faUser, faChartBar ,  faCloud , faWifi , faList , faFile , faImage , faTag} from '@fortawesome/free-solid-svg-icons'
+import { faHome, faPaperPlane , faNewspaper , faStream , faUsers , faUser, faChartBar ,  faCloud , faWifi , faList , faFile , faImage , faTag} from '@fortawesome/free-solid-svg-icons'
 
 export const MainSidebarItem = ({ text, id ,href}) => {
     var icon;
