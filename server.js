@@ -7,7 +7,9 @@ const bodyParser=require('body-parser');
 const cors=require('cors');
 
 var app = express();
-app.use(cors());
+app.use(cors({
+    origin:process.env.CLIENT_URL || 'http://localhost:3000/'
+}));
 
 //Import All Middlewares Here
 const auth = require('./middlewares/auth.js');
