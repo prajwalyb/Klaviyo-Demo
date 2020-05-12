@@ -8,7 +8,7 @@ const cors=require('cors');
 
 var app = express();
 app.use(cors({
-    origin:'https://klaviyo-demo.herokuapp.com/' || 'http://localhost:3000/'
+    origin:'https://klaviyo-demo.herokuapp.com/'
 }));
 
 //Import All Middlewares Here
