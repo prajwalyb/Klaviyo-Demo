@@ -1,23 +1,42 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { Alert } from 'reactstrap';
+
 import { API_URL } from '../helpers/utils.js';
+import { loginUser } from '../actions/authActions.js';
+import { clearErrors } from '../actions/errorActions.js';
 
 export class Login extends Component {
     constructor(props) {
         super(props);
-        // const token = localStorage.getItem('usertoken');
-        // let loggedIn=true;
-        // if(token==null) loggedIn=false;
 
         this.state = {
             email:"",
             password:""
-            // ,
-            // loggedIn
         }
         this.onChange=this.onChange.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
+    }
+    componentDidUpdate(prevProps){
+        const { error } = this.props;
+        if(error !== prevProps.error){
+            if(error.id === 'LOGIN_FAIL'){
+                this.setState({
+                    msg:error.msg.msg
+                });
+                setTimeout(() => {
+                    this.props.clearErrors()
+                }, 2500);
+            }else{
+                this.setState({
+                    msg:null
+                })
+            }
+        }        
+        if(this.props.isAuthenticated && this.props.token)
+            this.props.history.push('/')        
     }
     onChange(e){
         this.setState({[e.target.name]:e.target.value})
@@ -28,21 +47,7 @@ export class Login extends Component {
             email:this.state.email,
             password:this.state.password
         }
-        axios.post(`${API_URL}/users/login`,{
-            email:user.email,
-            password:user.password
-        })
-        .then(res=>{
-            //console.log(res)
-            localStorage.setItem('usertoken',JSON.stringify(
-                res.data
-            ))
-            this.props.history.push('/')
-            //return res.header
-        })
-        .catch(err=>{
-            console.log('error aa gya '+err)
-        })
+        this.props.loginUser(user);
     }
     render() {
         return (
@@ -50,6 +55,12 @@ export class Login extends Component {
                 <div className="row">
                     <div className="col-md-5 mt-5 mx-auto">
                         <form noValidate onSubmit={this.onSubmit}>
+                            {
+                                this.state.msg ? (
+                                    <Alert color="danger">{this.state.msg}</Alert>  
+                                ) : null 
+                                                        
+                            }
                             <h1 className="h3 mb-3 font-weight-normal">Please Sign In</h1>
                             <div className="form-group">
                                 <label htmlFor="email">Email Address</label>
@@ -84,4 +95,10 @@ export class Login extends Component {
     }
 }
 
-export default withRouter(Login)
+const mapStateToProps = state => ({
+    isAuthenticated:state.auth.isAuthenticated,
+    token:state.auth.token,
+    error:state.error
+})
+
+export default connect(mapStateToProps, { loginUser , clearErrors })(withRouter(Login));

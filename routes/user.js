@@ -15,6 +15,8 @@ router.post('/register',(req,res)=>{
         password:req.body.password,
         created:today
     }
+    if(!req.body.first_name|| !req.body.last_name|| !req.body.email|| !req.body.password)
+        return res.status(400).json({msg:'Enter All Details'});
     User.findOne({
         email:req.body.email
     })
@@ -24,18 +26,18 @@ router.post('/register',(req,res)=>{
                 userData.password=hash;
                 User.create(userData)
                 .then(user=>{
-                    res.status(200).json({status:user.email+' registered!'})
+                    return res.status(200).json({status:user.email+' registered!'})
                 })
                 .catch(err=>{
-                    res.statue(400).json({error: err})
+                    return res.status(400).json({msg: 'Something Went Wrong'})
                 })
             })
         }else{
-            res.status(409).json({error:'User already exists'});
+            return res.status(409).json({msg:'User already exists'});
         }
     })
     .catch(err=>{
-        res.send('error: '+err);
+        return res.status(400).json({msg:'Something Went wrong'});
     })
 })
 
@@ -54,18 +56,18 @@ router.post('/login',(req,res)=>{
                 }
                 let token = jwt.sign(payload, config.SECRET_KEY)
                 //res.header('x-auth-token',token).status(200).send()
-                res.status(200).send(token);
+                return res.status(200).json({token: token,user: payload});
             }
             else{
-                res.status(401).json({error:'Wrong Password'})
+                return res.status(401).json({msg:'Wrong Password '})
             }
         }
         else{
-            res.status(208).json({error:'User Does not exist'})
+            return res.status(208).json({msg:'User Does not exist'})
         }
     })
     .catch(err=>{
-        res.send('error'+err)
+        return res.status(400).json({msg:'Something Went Wrong'})
     })
 })
 

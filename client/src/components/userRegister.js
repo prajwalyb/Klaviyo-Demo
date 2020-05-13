@@ -1,7 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { withRouter} from 'react-router-dom';
-import axios from 'axios'
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { Alert } from 'reactstrap';
+
 import { API_URL } from '../helpers/utils.js';
+import { registerUser } from '../actions/authActions.js';
+import { clearErrors } from '../actions/errorActions.js';
 
 export class Register extends Component {
     constructor(props) {
@@ -16,6 +21,25 @@ export class Register extends Component {
         this.onChange=this.onChange.bind(this);
         this.onSubmit=this.onSubmit.bind(this);
     }
+    componentDidUpdate(prevProps){
+        const { error } = this.props;
+        if(error !== prevProps.error){
+            if(error.id === 'REGISTER_FAIL'){
+                this.setState({
+                    msg:error.msg.msg
+                });
+                setTimeout(() => {
+                    this.props.clearErrors()
+                }, 2500);
+            }else{
+                this.setState({
+                    msg:null
+                })
+            }
+        }        
+        if(this.props.isAuthenticated)
+            this.props.history.push('/login')        
+    }
     onChange(e){
         this.setState({[e.target.name]:e.target.value})
     }
@@ -27,19 +51,8 @@ export class Register extends Component {
             email:this.state.email,
             password:this.state.password
         }
-        axios.post(`${API_URL}/users/register`,{
-            first_name:newUser.first_name,
-            last_name:newUser.last_name,
-            email:newUser.email,
-            password:newUser.password,
-        })
-        .then(res=>{
-            this.props.history.push('/login')
-            console.log(res)
-        })
-        .catch(err=>{
-            console.log(err);
-        })
+
+        this.props.registerUser(newUser)
     }
     render() {
         return (
@@ -47,6 +60,12 @@ export class Register extends Component {
                 <div className="row">
                     <div className="col-md-5 mt-5 mx-auto">
                         <form noValidate onSubmit={this.onSubmit}>
+                        {
+                            this.state.msg ? (
+                                <Alert color="danger">{this.state.msg}</Alert>  
+                            ) : null 
+                                                       
+                        }
                             <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
                             <div className="form-group">
                                 <label htmlFor="first_name">First Name</label>
@@ -101,4 +120,9 @@ export class Register extends Component {
     }
 }
 
-export default withRouter(Register)
+const mapStateToProps = state => ({
+    isAuthenticated:state.auth.isAuthenticated,
+    error:state.error
+})
+
+export default connect (mapStateToProps , { registerUser , clearErrors })(withRouter(Register));

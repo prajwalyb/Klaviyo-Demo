@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default class logout extends Component {
-    constructor(props) {
-        super(props)
+import { logoutUser } from '../actions/authActions.js';
+
+export class logout extends Component {
     
-        localStorage.removeItem("usertoken");
-        console.log('logout me hai')
+    componentDidMount(){
+        this.props.logoutUser();
     }
-    
     render() {
         return (
             <div className="container">
@@ -20,3 +20,9 @@ export default class logout extends Component {
         )
     }
 }
+
+// const mapStatesToProps = state => {
+
+// }
+
+export default connect (null, { logoutUser })(logout);
