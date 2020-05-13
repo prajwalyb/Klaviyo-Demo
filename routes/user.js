@@ -5,6 +5,7 @@ const bcrypt = require ('bcrypt');
 let config = require('../config');
 
 const User = require('../models/user.js');
+const auth = require('../middlewares/auth.js');
 
 router.post('/register',(req,res)=>{
     const today= Date.now();
@@ -69,6 +70,12 @@ router.post('/login',(req,res)=>{
     .catch(err=>{
         return res.status(400).json({msg:'Something Went Wrong'})
     })
+})
+
+router.get('/auth', auth , (req,res)=>{
+    User.findOne(req.user.id)
+        .select('-password')
+        .then(user=>res.json(user))
 })
 
 module.exports=router;

@@ -6,16 +6,17 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink , Dropdown, DropdownToggle, DropdownMenu, DropdownItem
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-
+import { connect } from 'react-redux';
 
 const NavComp = (props) => {
   const [isOpen, setIsOpen] = useState(false);
+    const toggle = () => setIsOpen(!isOpen);
 
-  const toggle = () => setIsOpen(!isOpen);
-
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const ddtoggle = () => setDropdownOpen(prevState => !prevState);
   return (
     <div className="topbar">
         <div className="container-fluid">
@@ -31,19 +32,20 @@ const NavComp = (props) => {
                 <div className="header-primary-container">
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar className="nav">
-                    <Nav className="ml-auto Nav" navbar>
-                        <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Upgrade</NavLink>
-                        </NavItem>
-                        <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Support</NavLink>
-                        </NavItem>            
-                        <NavItem className="NavItem">
-                            <NavLink href="/logout" className="NavLink">Log Out</NavLink>
-                        </NavItem>
-                        <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Account</NavLink>
-                        </NavItem>                        
+                    <Nav className="ml-auto Nav" navbar> 
+                        {
+                            props.user ? 
+                                <Dropdown isOpen={dropdownOpen} toggle={ddtoggle}>
+                                    <DropdownToggle caret>
+                                        {props.user.first_name} {props.user.last_name}
+                                    </DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem href="/logout" className="NavLink">Log Out</DropdownItem>          
+                                    </DropdownMenu>
+                                </Dropdown>
+                                :
+                                <div></div>
+                        }
                     </Nav>
                 </Collapse>
                 </div>
@@ -53,4 +55,8 @@ const NavComp = (props) => {
   );
 }
 
-export default NavComp;
+const mapStateToProps = state => ({
+    user:state.auth.user
+})
+
+export default connect(mapStateToProps,null)(NavComp);

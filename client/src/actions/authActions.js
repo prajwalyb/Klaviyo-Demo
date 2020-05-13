@@ -1,7 +1,7 @@
 import { 
-    // USER_LOADING , 
-    // USER_LOADED , 
-    // AUTH_ERROR , 
+    USER_LOADING , 
+    USER_LOADED , 
+    AUTH_ERROR , 
     LOGIN_SUCCESS , 
     LOGIN_FAIL , 
     LOGOUT_SUCCESS , 
@@ -9,28 +9,35 @@ import {
     REGISTER_FAIL  
 } from "./types.js";
 import axios from 'axios';
-import { returnErrors } from './errorActions';
+import { returnErrors , clearErrors } from './errorActions';
 import { API_URL } from '../helpers/utils.js';
 
-// check token and load user
-// export const loadUser = () = ( dispatch , getState ) => {
-//     //user loading
-//     dispatch({
-//         type:USER_LOADING
-//     });
-//     //get token from localstorage
-//     const token=getState().auth.token;
-//     const config = {
-//         headers:{
-//             'Content-type':'application/json'
-//         }
-//     }
-//     if(token){
-//         config.headers['s-auth-token'] = token
-//     }
 
-//     axios.get()
-// }
+export const loadUser = () => ( dispatch , getState ) => {
+    dispatch({
+        type:USER_LOADING
+    });
+    const token=getState().auth.token;
+    const config = {
+        headers:{
+            'Content-type':'application/json'
+        }
+    }
+    if(token){
+        config.headers['x-auth-token'] = token
+    }
+    axios.get(`${API_URL}/users/auth`,config)
+        .then(res=>dispatch({
+            type:USER_LOADED,
+            payload:res.data
+        }))
+        .catch(err=>{
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({
+                type:AUTH_ERROR
+            })
+        })
+}
 
 export const registerUser= ( newUser ) => dispatch => {
     axios.post(`${API_URL}/users/register`,{
@@ -59,15 +66,16 @@ export const loginUser = ( user ) => dispatch => {
             password:user.password
         })
         .then(res=>{
-            localStorage.setItem('usertoken',JSON.stringify(
-                res.data.token
-            ))
+            // localStorage.setItem('usertoken',JSON.stringify(
+            //     res.data.token
+            // ))
             console.log(res)
             if(res.status===200){
                 dispatch({
                     type:LOGIN_SUCCESS,
                     payload:res.data
-                })
+                });
+                dispatch(clearErrors());
             }else{
                 dispatch({
                     type:LOGIN_FAIL

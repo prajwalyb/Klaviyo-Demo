@@ -12,8 +12,13 @@ import Login from './components/userLogin.js';
 import Logout from './pages/logout.js';
 import ProtectedRoute from './pages/protectedRoute.js';
 import store from './store.js';
+import { loadUser } from './actions/authActions.js';
 
 class App extends React.Component {
+  
+  componentDidMount(){
+    store.dispatch(loadUser());
+  }
 
   render(){
     return (
