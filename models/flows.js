@@ -1,8 +1,9 @@
 const mongoose= require('mongoose');
 
 const flowSchema = new mongoose.Schema({
-    name:{
-        type:String
+    user:{
+        type:mongoose.Schema.Types.Mixed,
+        required:true
     },
     flow:{
         type: mongoose.Schema.Types.Mixed,

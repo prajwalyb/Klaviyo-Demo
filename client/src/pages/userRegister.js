@@ -107,7 +107,7 @@ export class Register extends Component {
                                 onChange={this.onChange}
                                 />                                
                             </div>
-                            <button type="submit"className="btn btn-primary btn-block btn-lg">
+                            <button type="submit" className="btn btn-primary btn-block btn-lg">
                                 Register
                             </button>
                         </form>

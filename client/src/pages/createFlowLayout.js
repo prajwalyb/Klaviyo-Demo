@@ -4,12 +4,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortawesome/free-solid-svg-icons'
 import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps } from '@mrblenny/react-flow-chart'
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { chartSimple } from '../components/flows/DefaultChart'
 import FlowNavBar from '../components/flows/FlowNavBar.js';
 import { Page } from '../components/flows/Flowchart-Page'
 import { DragAndDropSidebar } from '../components/flows/Flowchart-Sidebar'
 import { API_URL } from '../helpers/utils.js';
+import { saveFlow } from '../actions/flowActions.js';
 
 const DefaultNode = styled.div`
   position: absolute;
@@ -147,29 +150,14 @@ const PortCustom = (props: IPortDefaultProps) => (
 )
 
 class Flow extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      flow:chartSimple
-    };
-  }
 
   saveFlow =(e)=>{
     e.preventDefault();
-    const res=axios({
-      method:'POST',
-      url:`${API_URL}/flows`,
-      headers: {
-        'Content-type': 'application/json'
-      },
-      data:{
-        flow:this.state.flow
-      }
-    })
-    console.log('Flow saved' + res)
+    this.props.saveFlow();
+    this.props.history.push('/flow')
   }
 
-  render () {
+  render () {     
     return (
       <>
         <FlowNavBar/>
@@ -177,17 +165,18 @@ class Flow extends React.Component {
         <Page>
             <DragAndDropSidebar/>
             <FlowChartWithState 
-              initialValue={this.state.flow} 
+              initialValue={this.props.flow} 
+              callbacks={ console.log() }
               config={{
                   smartRouting: true ,
                   snapToGrid: true,
                   validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
-                  console.log(chart.nodes[fromNodeId].type)
-                  if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
-                  else{
-                    return false
+                    //console.log(chart.nodes[fromNodeId].type)
+                    if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
+                    else{
+                      return false
+                    }
                   }
-                }
               }}
               Components={ {
                 Node: NodeCustom,
@@ -202,4 +191,9 @@ class Flow extends React.Component {
   }
 }
 
-export default Flow;
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  flow: state.flow.flow_body
+})
+
+export default connect( mapStateToProps , { saveFlow } )(withRouter(Flow));

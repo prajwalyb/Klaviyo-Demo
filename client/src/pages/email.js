@@ -10,9 +10,13 @@ class Email extends React.Component {
         <MainSidebar/>
         <div id="main">
             <div className="dashboard-nav-header">
-                <p>Email Templates</p>
-                <a className="btn btn-primary" href="/email-templates/create">Create Template</a>
-                <div className="dashboard-nav-footer"></div>
+              <div className="container">
+                <div className="row">
+                <p style={{margin:'0 0 0 -90px'}}>Email Templates</p>
+                <a className="btn primaryButton" href="/email-templates/create">Create Template</a>
+              </div>
+            </div>
+            <div className="dashboard-nav-footer"></div>
             </div>  
         </div>
       </React.Fragment>

@@ -3,9 +3,10 @@ const router = express.Router();
 
 const Flow = require('../models/flows')
 
-router.post('/',(req,res)=>{
-    //console.log("req "+ JSON.stringify(req.body.flow))
+router.post('/save',(req,res)=>{
+    //console.log("req "+ JSON.stringify(req.body))
     const newFlow= new Flow({
+        user: req.body.user,
         flow: req.body.flow
     })
     newFlow

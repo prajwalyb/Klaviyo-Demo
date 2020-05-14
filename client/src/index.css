@@ -13,7 +13,12 @@ body{
     height: 50px;
     margin-left:145px
 }
-
+.primaryButton{
+    position:absolute;
+    right:50px;
+    background:rgb(43, 152, 211); 
+    color:white
+}
 /*Navbar*/
 .navsearch{
     background: #373F47;
@@ -140,11 +145,9 @@ body{
     font-family: proxima-nova, sans-serif;
     white-space: initial;
     padding-left: 24px;
-    padding-bottom: 8px;
-    padding-top: 24px;
+    padding-top: 15px;
 }
 .dashboard-nav-footer{
-    padding-left: 8px;
     height: 44px;
     display: flex;
     justify-content: flex-start;
