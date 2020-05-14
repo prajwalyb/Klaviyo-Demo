@@ -4,13 +4,14 @@ import { Provider } from "react-redux";
 
 import Dashboard from './pages/dashboard.js';
 import Flow from './pages/flows.js';
-import FlowLayout from './pages/flowLayout.js';
+import FlowLayout from './pages/createFlowLayout.js';
 import Email from './pages/email.js';
-import EmailTemplate from './pages/emailLayout.js';
-import Register from './components/userRegister.js';
-import Login from './components/userLogin.js';
+import EmailTemplate from './pages/createEmailLayout.js';
+import Register from './pages/userRegister.js';
+import Login from './pages/userLogin.js';
 import Logout from './pages/logout.js';
-import ProtectedRoute from './pages/protectedRoute.js';
+import ProtectedRoute from './components/protectedRoute.js';
+
 import store from './store.js';
 import { loadUser } from './actions/authActions.js';
 

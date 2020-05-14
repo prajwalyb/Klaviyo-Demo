@@ -5,10 +5,10 @@ import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortaweso
 import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps } from '@mrblenny/react-flow-chart'
 import axios from 'axios';
 
-import { chartSimple } from '../components/DefaultChart'
-import FlowNavBar from '../components/FlowNavBar.js';
-import { Page } from '../components/Flowchart-Page'
-import { DragAndDropSidebar } from '../components/Flowchart-Sidebar'
+import { chartSimple } from '../components/flows/DefaultChart'
+import FlowNavBar from '../components/flows/FlowNavBar.js';
+import { Page } from '../components/flows/Flowchart-Page'
+import { DragAndDropSidebar } from '../components/flows/Flowchart-Sidebar'
 import { API_URL } from '../helpers/utils.js';
 
 const DefaultNode = styled.div`
