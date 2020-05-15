@@ -17,22 +17,13 @@ export const loadUser = () => ( dispatch , getState ) => {
     dispatch({
         type:USER_LOADING
     });
-    const token=getState().auth.token;
-    const config = {
-        headers:{
-            'Content-type':'application/json'
-        }
-    }
-    if(token){
-        config.headers['x-auth-token'] = token
-    }
-    axios.get(`${API_URL}/users/auth`,config)
+    axios.get(`${API_URL}/users/auth`,tokenConfig(getState))
         .then(res=>dispatch({
             type:USER_LOADED,
             payload:res.data
         }))
         .catch(err=>{
-            dispatch(returnErrors(err.response.data, err.response.status));
+            //dispatch(returnErrors(err.response.data, err.response.status));
             dispatch({
                 type:AUTH_ERROR
             })
@@ -95,4 +86,17 @@ export const logoutUser = () => dispatch => {
     dispatch({
         type:LOGOUT_SUCCESS
     })
+}
+
+export const tokenConfig = getState => {
+    const token=getState().auth.token;
+    const config = {
+        headers:{
+            'Content-type':'application/json'
+        }
+    }
+    if(token){
+        config.headers['x-auth-token'] = token
+    }
+    return config;
 }

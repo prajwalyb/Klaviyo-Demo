@@ -9,7 +9,10 @@ import {
   NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem 
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import { saveFlow } from '../../actions/flowActions.js';
 
 const NavComp = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +22,13 @@ const NavComp = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const ddtoggle = () => setDropdownOpen(prevState => !prevState);
+
+    const saveFlow =(e)=>{
+        e.preventDefault();
+        props.saveFlow();
+        props.history.push('/flow')
+    }
+
   return (
     <div className="topbar">
         <div className="container-fluid">
@@ -27,7 +37,9 @@ const NavComp = (props) => {
                     <NavbarBrand href="/" style={{color: '#DFE3E6'}}>Klaviyo</NavbarBrand>
                     <Dropdown isOpen={dropdownOpen} toggle={ddtoggle}>
                         <DropdownToggle caret>
-                            Flow#1
+                           {
+                               (props.flowName) ? props.flowName : "404"
+                           }
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem>Some Action</DropdownItem>                            
@@ -46,7 +58,7 @@ const NavComp = (props) => {
                             <NavLink href="/" className="NavLink">Manage Flow</NavLink>
                         </NavItem>            
                         <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Save & Exit</NavLink>
+                            <NavLink href="/" className="NavLink" onClick={saveFlow}>Save & Exit</NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
@@ -57,4 +69,9 @@ const NavComp = (props) => {
   );
 }
 
-export default NavComp;
+const mapStateToProps = state => ({
+  flowName: state.flow.flow_name
+})
+
+
+export default connect ( mapStateToProps , { saveFlow })(withRouter(NavComp));

@@ -16,3 +16,7 @@ export const CLEAR_ERRORS = "CLEAR_ERROR";
 export const UPDATE_FLOW = "UPDATE_FLOW";
 export const GET_FLOWS = "GET_FLOWS";
 export const INITIALIZE_FLOW = "INITIALIZE_FLOW";
+export const LOAD_ALL_FLOWS = "LOAD_ALL_FLOWS";
+export const LOAD_SELECTED_FLOWS = "LOAD_SELECTED_FLOWS";
+export const NO_FLOWS = "NO_FLOWS";
+export const DELETE_FLOW = "DELETE_FLOW";

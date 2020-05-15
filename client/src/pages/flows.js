@@ -2,11 +2,14 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { withRouter} from 'react-router-dom';
+import { withRouter , Redirect} from 'react-router-dom';
+import { Table } from 'reactstrap';
+import axios from 'axios';
 
+import {API_URL} from '../helpers/utils.js';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
-import { initializeFlow } from '../actions/flowActions.js';
+import { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow} from '../actions/flowActions.js';
 
 class Flow extends React.Component {
   
@@ -15,7 +18,9 @@ class Flow extends React.Component {
   
     this.state = {
        modal:false,
-       flowName:""
+       flowName:"",
+       flowList:[],
+       openLayout:false
     }
     this.toggle = this.toggle.bind(this);
     this.onChange=this.onChange.bind(this);
@@ -38,14 +43,34 @@ class Flow extends React.Component {
             flow_name : this.state.flowName,
             flow_id : uuidv4()
         }
-        console.log(newFlow)
+        //console.log(newFlow)
         this.props.initializeFlow(newFlow)
         this.toggle();
         this.props.history.push('/flow/create')
     }
 
+  componentWillReceiveProps(nextProps){ 
+      this.props.loadFlowList();
+      this.setState({
+        flowList:this.props.flow
+      })
+  }
+
+  onDeleteClick = ( id ) => {
+      this.props.deleteFlow(id);
+  }
+
+  onEditClick = ( id ) => {
+    this.props.loadSelectedFlow(id);
+    this.setState({
+      openLayout:true
+    })
+    //this.props.history.push('/flow/create')
+  }
+
   render () {
-    return (
+    //if(!this.state.openLayout)
+      return (
        <React.Fragment>
         <NavComp/>
         <MainSidebar/>
@@ -61,6 +86,27 @@ class Flow extends React.Component {
                   </div>
                   <div className="dashboard-nav-footer"></div>
             </div>
+            <br/>
+             <div className="Card-Table">
+              <div className="Card-Table-Inner">
+                <Table>
+                <tbody>
+                {(this.state.flowList)?this.state.flowList.map((obj)=>{
+                  return(
+                    <tr>
+                      <td key={obj.flow.flow_id} style={{display: 'flex', alignItems: 'center', overflow: 'visible', flex: '100 0 auto', width: '100px'}}>{obj.flow.flow_name}</td>
+                      <div style={{position:'absolute' , display: 'flex', alignItems: 'flex-start', overflow: 'visible', justifyContent: 'flex-end', marginTop: '8px', flex: '16 0 auto',  width: '16px', right:'250px'}}>
+                        <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.flow.flow_id)} >Delete</button>
+                        <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.flow.flow_id)}>Edit</button>
+                      </div>                      
+                    </tr>
+                  )
+                }):<h1>Loading</h1>
+                }
+                </tbody>
+            </Table>
+              </div>              
+             </div>
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
               <form onSubmit={this.onSubmit}>
                 <ModalHeader toggle={this.toggle}>Create Flow</ModalHeader>
@@ -86,7 +132,14 @@ class Flow extends React.Component {
         </div>
       </React.Fragment>
     )
+    //Redirect to /create route
+    //else return <Redirect to='/flow/create' />
   }
 }
 
-export default connect( null , { initializeFlow } )(withRouter(Flow));
+const mapStateToProps = state => ({
+    user:state.auth.user,
+    flow:state.flow.allFlows
+})
+
+export default connect( mapStateToProps , { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow} )(withRouter(Flow));

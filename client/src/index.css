@@ -281,3 +281,58 @@ body{
     justify-content: space-between;
     flex-direction: column;
 }
+/* Tables */
+.Card-Table{
+    max-width: 100%;
+    position: relative;
+    padding: 24px;
+    box-shadow: rgba(98, 111, 126, 0.66) 0px 1px 2px 0px;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+    flex: 1 1 0%;
+    border-radius: 4px;
+}
+.Card-Table-Inner{
+    max-width: 900px;
+    padding: 16px 0px 0px;
+    font-family: proxima-nova, sans-serif;
+}
+.Card-Table-Inner Table{
+    margin-top: 8px;
+    height: 0px;
+    border-top: 1px solid rgb(235, 238, 239);
+}
+.Card-Table-Inner Table tbody{
+    color: rgb(48, 59, 67);
+    font-weight: 400;
+    font-size: 14px;   
+    overflow: visible;
+    flex-direction: column;
+}
+.Card-Table-Inner Table tbody tr{
+    font-size: 17px;
+    border-bottom: 1px solid rgb(235, 238, 239);
+    display: flex;
+    padding: 8px 16px;
+    border-right: 0px;
+}
+.Card-Table-Inner-td-mid{
+    display: flex; 
+    align-items: center; 
+    overflow: visible; 
+    flex: 100 0 auto; 
+    width: 100px;
+}
+.btnTable{
+    position: relative;
+    font-family: proxima-nova, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 32px;
+    color: rgb(96, 106, 114);
+    border-radius: 2px;
+    padding: 0px 16px;
+    margin-left:10px;
+    background: rgb(223, 227, 230);
+    border-style: none;
+}

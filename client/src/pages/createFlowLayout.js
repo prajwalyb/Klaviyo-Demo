@@ -5,7 +5,7 @@ import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortaweso
 import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps } from '@mrblenny/react-flow-chart'
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter , Redirect } from 'react-router-dom';
 
 import { chartSimple } from '../components/flows/DefaultChart'
 import FlowNavBar from '../components/flows/FlowNavBar.js';
@@ -151,49 +151,47 @@ const PortCustom = (props: IPortDefaultProps) => (
 
 class Flow extends React.Component {
 
-  saveFlow =(e)=>{
-    e.preventDefault();
-    this.props.saveFlow();
-    this.props.history.push('/flow')
-  }
-
   render () {     
-    return (
-      <>
-        <FlowNavBar/>
-          <button className="btn btn-primary" onClick={this.saveFlow}>Save</button>
-        <Page>
-            <DragAndDropSidebar/>
-            <FlowChartWithState 
-              initialValue={this.props.flow} 
-              callbacks={ console.log() }
-              config={{
-                  smartRouting: true ,
-                  snapToGrid: true,
-                  validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
-                    //console.log(chart.nodes[fromNodeId].type)
-                    if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
-                    else{
-                      return false
+    if(this.props.flow.flow_id && this.props.flow.flow_name){
+      return (
+        <>
+          <FlowNavBar/>
+          <Page>
+              <DragAndDropSidebar/>
+              <FlowChartWithState 
+                initialValue={this.props.flow.flow_body} 
+                config={{
+                    smartRouting: true ,
+                    snapToGrid: true,
+                    validateLink: ({ linkId, fromNodeId, fromPortId, toNodeId, toPortId, chart }) => {
+                      //console.log(chart.nodes[fromNodeId].type)
+                      if (chart.nodes[fromNodeId].ports[fromPortId].type === 'bottom' && chart.nodes[toNodeId].ports[toPortId].type === 'top') return true
+                      else{
+                        return false
+                      }
                     }
-                  }
-              }}
-              Components={ {
-                Node: NodeCustom,
-                CanvasOuter: CanvasOuterCustom,
-                Port: PortCustom,
-                NodeInner: NodeInnerCustom,
-              }}
-              />      
-        </Page>
-      </>
-    )
+                }}
+                Components={ {
+                  Node: NodeCustom,
+                  CanvasOuter: CanvasOuterCustom,
+                  Port: PortCustom,
+                  NodeInner: NodeInnerCustom,
+                }}
+                />      
+          </Page>
+        </>
+      )
+    } else {
+      return(
+        <Redirect to='/flow' />
+      )
+    }
   }
 }
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  flow: state.flow.flow_body
+  flow: state.flow
 })
 
 export default connect( mapStateToProps , { saveFlow } )(withRouter(Flow));
