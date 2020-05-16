@@ -1,15 +1,6 @@
-import { 
-    USER_LOADING , 
-    USER_LOADED , 
-    AUTH_ERROR , 
-    LOGIN_SUCCESS , 
-    LOGIN_FAIL , 
-    LOGOUT_SUCCESS , 
-    REGISTER_SUCCESS , 
-    REGISTER_FAIL  
-} from "./types.js";
+import { USER_LOADING , USER_LOADED , AUTH_ERROR , LOGIN_SUCCESS , LOGIN_FAIL , LOGOUT_SUCCESS , REGISTER_SUCCESS , REGISTER_FAIL } from "./types.js";
 import axios from 'axios';
-import { returnErrors , clearErrors } from './errorActions';
+import { returnErrors , clearErrors , returnNotifications , clearNotifications } from './popUpActions';
 import { API_URL } from '../helpers/utils.js';
 
 
@@ -38,6 +29,7 @@ export const registerUser= ( newUser ) => dispatch => {
             password:newUser.password,
         })
         .then(res=>{
+            dispatch(returnNotifications("Registered Successfully!!"))
             dispatch({
                 type:REGISTER_SUCCESS,
                 payload:res.data
@@ -60,7 +52,7 @@ export const loginUser = ( user ) => dispatch => {
             // localStorage.setItem('usertoken',JSON.stringify(
             //     res.data.token
             // ))
-            console.log(res)
+            //console.log(res)
             if(res.status===200){
                 dispatch({
                     type:LOGIN_SUCCESS,

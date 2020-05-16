@@ -1,7 +1,7 @@
 import { UPDATE_FLOW , GET_FLOWS , INITIALIZE_FLOW , LOAD_ALL_FLOWS , NO_FLOWS , DELETE_FLOW , LOAD_SELECTED_FLOWS } from "./types.js";
 
 import axios from 'axios';
-import { returnErrors , clearErrors } from './errorActions';
+import { returnErrors , clearErrors } from './popUpActions';
 import { tokenConfig } from './authActions';
 import { API_URL } from '../helpers/utils.js';
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { withRouter} from 'react-router-dom';
+import { withRouter , Redirect} from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Alert } from 'reactstrap';
 
 import { API_URL } from '../helpers/utils.js';
 import { registerUser } from '../actions/authActions.js';
-import { clearErrors } from '../actions/errorActions.js';
+import { clearErrors , clearNotifications} from '../actions/popUpActions.js';
 
 export class Register extends Component {
     constructor(props) {
@@ -22,11 +22,11 @@ export class Register extends Component {
         this.onSubmit=this.onSubmit.bind(this);
     }
     componentDidUpdate(prevProps){
-        const { error } = this.props;
-        if(error !== prevProps.error){
-            if(error.id === 'REGISTER_FAIL'){
+        const { popUp } = this.props;
+        if(popUp !== prevProps.popUp){
+            if(popUp.id === 'REGISTER_FAIL'){
                 this.setState({
-                    msg:error.msg.msg
+                    msg:popUp.msg.msg
                 });
                 setTimeout(() => {
                     this.props.clearErrors()
@@ -36,9 +36,16 @@ export class Register extends Component {
                     msg:null
                 })
             }
-        }        
-        if(this.props.isAuthenticated)
-            this.props.history.push('/login')        
+            if(popUp.notification){
+                this.setState({
+                    notification:popUp.notification
+                })
+                setTimeout(() => {
+                    this.props.clearNotifications();
+                    this.props.history.push('/login')      
+                }, 1600);
+            }
+        }             
     }
     onChange(e){
         this.setState({[e.target.name]:e.target.value})
@@ -65,6 +72,11 @@ export class Register extends Component {
                                 <Alert color="danger">{this.state.msg}</Alert>  
                             ) : null 
                                                        
+                        }
+                        {
+                            this.state.notification ? (
+                                <Alert color="success">{this.state.notification}</Alert>  
+                            ) : null                                                         
                         }
                             <h1 className="h3 mb-3 font-weight-normal">Please Register</h1>
                             <div className="form-group">
@@ -122,7 +134,7 @@ export class Register extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated:state.auth.isAuthenticated,
-    error:state.error
+    popUp:state.popUp
 })
 
-export default connect (mapStateToProps , { registerUser , clearErrors })(withRouter(Register));
+export default connect (mapStateToProps , { registerUser , clearErrors , clearNotifications })(withRouter(Register));

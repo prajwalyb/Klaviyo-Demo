@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import authReducer from './authReducer';
-import errorReducer from './errorReducer';
+import popUpReducer from './popUpReducer';
 import flowReducer from './flowReducer';
 
 export default combineReducers({
     auth:authReducer,
-    error:errorReducer,
+    popUp:popUpReducer,
     flow:flowReducer
 })

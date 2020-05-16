@@ -6,7 +6,7 @@ import { Alert } from 'reactstrap';
 
 import { API_URL } from '../helpers/utils.js';
 import { loginUser } from '../actions/authActions.js';
-import { clearErrors } from '../actions/errorActions.js';
+import { clearErrors } from '../actions/popUpActions.js';
 
 export class Login extends Component {
     constructor(props) {
@@ -20,11 +20,11 @@ export class Login extends Component {
         this.onSubmit=this.onSubmit.bind(this);
     }
     componentDidUpdate(prevProps){
-        const { error } = this.props;
-        if(error !== prevProps.error){
-            if(error.id === 'LOGIN_FAIL'){
+        const { popUp } = this.props;
+        if(popUp !== prevProps.popUp){
+            if(popUp.id === 'LOGIN_FAIL'){
                 this.setState({
-                    msg:error.msg.msg
+                    msg:popUp.msg.msg
                 });
                 setTimeout(() => {
                     this.props.clearErrors()
@@ -34,7 +34,7 @@ export class Login extends Component {
                     msg:null
                 })
             }
-        }        
+        }
         if(this.props.isAuthenticated && this.props.token)
             this.props.history.push('/')        
     }
@@ -60,7 +60,12 @@ export class Login extends Component {
                                     <Alert color="danger">{this.state.msg}</Alert>  
                                 ) : null 
                                                         
-                            }
+                            }       
+                            {
+                                this.state.notification ? (
+                                    <Alert color="success">{this.state.notification}</Alert>  
+                                ) : null                                                         
+                            }                     
                             <h1 className="h3 mb-3 font-weight-normal">Please Sign In</h1>
                             <div className="form-group">
                                 <label htmlFor="email">Email Address</label>
@@ -98,7 +103,7 @@ export class Login extends Component {
 const mapStateToProps = state => ({
     isAuthenticated:state.auth.isAuthenticated,
     token:state.auth.token,
-    error:state.error
+    popUp:state.popUp
 })
 
 export default connect(mapStateToProps, { loginUser , clearErrors })(withRouter(Login));

@@ -12,6 +12,10 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_ERRORS = "GET_ERROR";
 export const CLEAR_ERRORS = "CLEAR_ERROR";
 
+//Notofications
+export const GET_NOTIFICATION = "GET_NOTIFICATION";
+export const CLEAR_NOTIFICATION = "CLEAR_NOTIFICATION";
+
 //Flow
 export const UPDATE_FLOW = "UPDATE_FLOW";
 export const GET_FLOWS = "GET_FLOWS";
