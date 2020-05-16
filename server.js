@@ -16,6 +16,7 @@ const Middlewares = [auth];
 //Import all Route Files here
 const flows=require('./routes/flows');
 const users=require('./routes/user');
+const emails=require('./routes/email');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
@@ -32,4 +33,5 @@ app.listen(PORT,()=>{
 
 //routes
 app.use('/flows', Middlewares , flows);
+app.use('/emails', Middlewares , emails);
 app.use('/users', users);

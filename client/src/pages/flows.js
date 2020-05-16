@@ -6,7 +6,6 @@ import { withRouter , Redirect} from 'react-router-dom';
 import { Table } from 'reactstrap';
 import axios from 'axios';
 
-import {API_URL} from '../helpers/utils.js';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
 import { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow} from '../actions/flowActions.js';

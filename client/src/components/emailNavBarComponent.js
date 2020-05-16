@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem 
-} from 'reactstrap';
+import { Collapse,  Navbar,  NavbarToggler,  NavbarBrand,  Nav,  NavItem, NavLink, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { saveFlow } from '../../actions/flowActions.js';
+import { saveEmail } from '../actions/emailActions.js';
 
 const NavComp = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,10 +15,9 @@ const NavComp = (props) => {
 
   const ddtoggle = () => setDropdownOpen(prevState => !prevState);
 
-    const saveFlow =(e)=>{
+    const saveEmail =(e)=>{
         e.preventDefault();
-        props.saveFlow();
-        props.history.push('/flow')
+        props.saveDesign();
     }
 
   return (
@@ -38,27 +29,20 @@ const NavComp = (props) => {
                     <Dropdown isOpen={dropdownOpen} toggle={ddtoggle}>
                         <DropdownToggle caret>
                            {
-                               (props.flowName) ? props.flowName : "404"
+                               (props.emailName) ? props.emailName : "404"
                            }
                         </DropdownToggle>
-                        {/* <DropdownMenu>
-                            <DropdownItem>Some Action</DropdownItem>                            
-                            <DropdownItem>Foo Action</DropdownItem>
-                        </DropdownMenu> */}
                     </Dropdown>
                 </div>
                 <div className="header-primary-container">
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar className="nav">
                     <Nav className="ml-auto Nav" navbar>
-                        {/* <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Show Analytics</NavLink>
+                        <NavItem className="NavItem">
+                            <NavLink href="/" className="NavLink" onClick={saveEmail}>Save</NavLink>
                         </NavItem>
                         <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Manage Flow</NavLink>
-                        </NavItem>             */}
-                        <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink" onClick={saveFlow}>Save & Exit</NavLink>
+                            <NavLink href="/email-templates" className="NavLink">Exit</NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
@@ -70,8 +54,8 @@ const NavComp = (props) => {
 }
 
 const mapStateToProps = state => ({
-  flowName: state.flow.flow_name
+  emailName: state.email.email_name
 })
 
 
-export default connect ( mapStateToProps , { saveFlow })(withRouter(NavComp));
+export default connect ( mapStateToProps , { saveEmail })(withRouter(NavComp));

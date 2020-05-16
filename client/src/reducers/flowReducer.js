@@ -1,4 +1,4 @@
-import { UPDATE_FLOW , GET_FLOWS , INITIALIZE_FLOW , LOAD_ALL_FLOWS , NO_FLOWS , DELETE_FLOW , LOAD_SELECTED_FLOWS } from "../actions/types.js";
+import { UPDATE_FLOW , INITIALIZE_FLOW , LOAD_ALL_FLOWS , NO_FLOWS , DELETE_FLOW , LOAD_SELECTED_FLOWS } from "../actions/types.js";
 import { chartSimple } from '../components/flows/DefaultChart';
 
 const initialState={

@@ -18,9 +18,16 @@ export const CLEAR_NOTIFICATION = "CLEAR_NOTIFICATION";
 
 //Flow
 export const UPDATE_FLOW = "UPDATE_FLOW";
-export const GET_FLOWS = "GET_FLOWS";
 export const INITIALIZE_FLOW = "INITIALIZE_FLOW";
 export const LOAD_ALL_FLOWS = "LOAD_ALL_FLOWS";
 export const LOAD_SELECTED_FLOWS = "LOAD_SELECTED_FLOWS";
 export const NO_FLOWS = "NO_FLOWS";
 export const DELETE_FLOW = "DELETE_FLOW";
+
+//Email
+export const UPDATE_EMAIL = "UPDATE_EMAIL";
+export const INITIALIZE_EMAIL = "INITIALIZE_EMAIL";
+export const LOAD_ALL_EMAILS = "LOAD_ALL_EMAILS";
+export const LOAD_SELECTED_EMAIL = "LOAD_SELECTED_EMAIL";
+export const NO_EMAILS = "NO_EMAILS";
+export const DELETE_EMAIL = "DELETE_EMAIL";
