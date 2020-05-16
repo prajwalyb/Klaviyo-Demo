@@ -46,8 +46,8 @@ export default function ( state = initialState , action ) {
                 ...state,
                 flow_name: null,
                 flow_id: null,
-                flow_body: chartSimple,
-                allFlows:null
+                flow_body: null,
+                allFlows:action.payload
             };
         default:
             return state;

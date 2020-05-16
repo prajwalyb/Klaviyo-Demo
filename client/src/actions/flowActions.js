@@ -70,9 +70,15 @@ export const deleteFlow = (flow_id) => ( dispatch , getState ) =>{
     axios.delete(`${API_URL}/flows/${getState().auth.user._id}/deleteOne/${flow_id}`,tokenConfig(getState))
     .then(res=>{
             if(res.data.success)
-                dispatch({
-                    type:DELETE_FLOW
+            {
+                var arr=getState().flow.allFlows.filter(function(item){
+                    return item.flow.flow_id!=flow_id
                 })
+                dispatch({
+                    type:DELETE_FLOW,
+                    payload:arr
+                })  
+            }
             //notification wala alert dalna hai
             //console.log(res);
         }

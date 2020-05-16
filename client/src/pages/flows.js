@@ -50,10 +50,10 @@ class Flow extends React.Component {
     }
 
   componentWillReceiveProps(nextProps){ 
-      this.props.loadFlowList();
-      this.setState({
-        flowList:this.props.flow
-      })
+    if(this.props.user===null) this.props.loadFlowList();       
+    this.setState({
+      flowList:nextProps.flow
+    })
   }
 
   onDeleteClick = ( id ) => {
@@ -65,7 +65,6 @@ class Flow extends React.Component {
     this.setState({
       openLayout:true
     })
-    //this.props.history.push('/flow/create')
   }
 
   render () {
