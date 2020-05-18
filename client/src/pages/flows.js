@@ -74,32 +74,33 @@ class Flow extends React.Component {
         <MainSidebar/>
         <div id="main">
             <div className="dashboard-nav-header">
-                  <div className="container">
-                    <div className="row">
-                      <p style={{margin:'0 0 0 -90px'}}>Flows</p>
-                      <button className="btn primaryButton" onClick={this.toggle}>
-                        Create Flow
-                      </button>
-                    </div>
+                <div className="container">
+                  <div className="row">
+                    <p style={{margin:'0 0 0 -90px'}}>Flows</p>
+                    <button className="btn primaryButton" onClick={this.toggle}>
+                      Create Flow
+                    </button>
                   </div>
-                  <div className="dashboard-nav-footer"></div>
+                </div>
+                <div className="dashboard-nav-footer"></div>
             </div>
             <br/>
              <div className="Card-Table">
               <div className="Card-Table-Inner">
                 <Table>
                 <tbody>
-                {(this.state.flowList)?this.state.flowList.map((obj)=>{
-                  return(
-                    <tr>
-                      <td key={obj.flow.flow_id} style={{display: 'flex', alignItems: 'center', overflow: 'visible', flex: '100 0 auto', width: '100px'}}>{obj.flow.flow_name}</td>
-                      <div style={{position:'absolute' , display: 'flex', alignItems: 'flex-start', overflow: 'visible', justifyContent: 'flex-end', marginTop: '8px', flex: '16 0 auto',  width: '16px', right:'250px'}}>
-                        <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.flow.flow_id)} >Delete</button>
-                        <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.flow.flow_id)}>Edit</button>
-                      </div>                      
-                    </tr>
-                  )
-                }):<h1>Loading</h1>
+                {
+                  (this.state.flowList)?this.state.flowList.map((obj)=>{
+                    return(
+                      <tr>
+                        <td key={obj.flow.flow_id} style={{display: 'flex', alignItems: 'center', overflow: 'visible', flex: '100 0 auto', width: '100px'}}>{obj.flow.flow_name}</td>
+                        <div style={{position:'absolute' , display: 'flex', alignItems: 'flex-start', overflow: 'visible', justifyContent: 'flex-end', marginTop: '8px', flex: '16 0 auto',  width: '16px', right:'250px'}}>
+                          <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.flow.flow_id)} >Delete</button>
+                          <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.flow.flow_id)}>Edit</button>
+                        </div>                      
+                      </tr>
+                    )
+                  }):<h1>Loading</h1>
                 }
                 </tbody>
             </Table>

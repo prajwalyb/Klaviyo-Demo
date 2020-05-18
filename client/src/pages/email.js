@@ -1,12 +1,12 @@
 import React from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter , Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { withRouter , Redirect , Link } from 'react-router-dom';
 
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
-import { initializeEmail , loadEmailList } from '../actions/emailActions.js';
+import { initializeEmail , loadEmailList , deleteEmail ,loadSelectedEmail } from '../actions/emailActions.js';
 
 class Email extends React.Component {
 
@@ -42,16 +42,22 @@ class Email extends React.Component {
       }
       this.props.initializeEmail(newEmail)
       this.toggle();
-      this.props.loadEmailList()
   }
 
-  componentWillReceiveProps(){
-    //this.props.loadEmailList()
-    //if(this.props.user===null) this.props.loadEmailList();       
-    // this.setState({
-    //   flowList:nextProps.flow
-    // })
-    //==================There is some error in auth.user.email==>> CHECK IT
+  componentWillReceiveProps(nextProps){
+    if(this.props.user===null) this.props.loadEmailList();       
+    this.setState({
+      emailList:nextProps.email
+    })
+  }
+  
+  onDeleteClick = ( id ) => {
+    this.props.deleteEmail(id);
+  }
+
+  onEditClick = async( id ) => {
+    await this.props.loadSelectedEmail(id);
+    this.props.history.push('/email-templates/create')
   }
 
   render() {
@@ -68,7 +74,28 @@ class Email extends React.Component {
               </div>
             </div>
             <div className="dashboard-nav-footer"></div>
-            </div>  
+            </div>
+            <div className="Card-Table">
+                <div className="Card-Table-Inner">
+                  <Table>
+                      <tbody>
+                        {
+                          (this.state.emailList)?this.state.emailList.map((obj)=>{
+                            return(
+                              <tr>
+                                <td key={obj.email.email_id} style={{display: 'flex', alignItems: 'center', overflow: 'visible', flex: '100 0 auto', width: '100px'}}>{obj.email.email_name}</td>
+                                <div style={{position:'absolute' , display: 'flex', alignItems: 'flex-start', overflow: 'visible', justifyContent: 'flex-end', marginTop: '8px', flex: '16 0 auto',  width: '16px', right:'250px'}}>
+                                  <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.email.email_id)} >Delete</button>
+                                  <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.email.email_id)}>Edit</button>
+                                </div>                      
+                              </tr>
+                            )
+                          }):<h1>Loading</h1>
+                        }
+                      </tbody>
+                  </Table>
+                </div>              
+              </div>  
             <Modal isOpen={this.state.modal} toggle={this.toggle} >
                 <form onSubmit={this.onSubmit}>
                   <ModalHeader toggle={this.toggle}>Create Email Template</ModalHeader>
@@ -99,4 +126,9 @@ class Email extends React.Component {
   }
 }
 
-export default connect(null , { initializeEmail , loadEmailList } )(Email);
+const mapStateToProps = state => ({
+    user:state.auth.user,
+    email:state.email.allemails
+})
+
+export default connect( mapStateToProps , { initializeEmail , loadEmailList , deleteEmail , loadSelectedEmail} )(withRouter(Email));
