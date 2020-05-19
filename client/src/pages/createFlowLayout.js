@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faEnvelope , faUser , faClock , faCodeBranch } from '@fortawesome/free-solid-svg-icons'
+import { faBolt, faEnvelope , faUser , faClock , faCodeBranch, faCogs } from '@fortawesome/free-solid-svg-icons'
 import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps } from '@mrblenny/react-flow-chart'
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -10,7 +10,8 @@ import { withRouter , Redirect } from 'react-router-dom';
 import { chartSimple } from '../components/flows/DefaultChart'
 import FlowNavBar from '../components/flows/FlowNavBar.js';
 import { Page } from '../components/flows/Flowchart-Page'
-import { DragAndDropSidebar } from '../components/flows/Flowchart-Sidebar'
+import { DragAndDropSidebar } from '../components/flows/Flowchart-Sidebar';
+import { TriggerSideBar , UpdateProfileSideBar , TimeDelaySideBar , EmailSideBar , ConditionalSplitSideBar } from '../components/flows/SelectedItemSidebar';
 import { API_URL } from '../helpers/utils.js';
 import { saveFlow } from '../actions/flowActions.js';
 
@@ -112,33 +113,6 @@ const NodeCustom = React.forwardRef(({ node, children, ...otherProps }: INodeDef
   }
 })
 
-const NodeInnerCustom = ({ node, config }: INodeInnerDefaultProps) => {
-  var icon;
-  if (node.type === 'When someone Active on Site') 
-    icon=faBolt;
-  else if (node.type === 'Email')
-    icon=faEnvelope
-  else if (node.type === 'Update Profile Property')
-    icon=faUser
-  else if (node.type === 'Time Delay')
-  icon=faClock
-  else if (node.type === 'Conditional split' || node.type === 'Trigger split')
-    icon=faCodeBranch
-  if (icon) 
-    return (
-      <div className="placed-component-body" style={{marginTop:'10px'}}>
-        <div className="placed-component-icon-container">
-            <div className="placed-component-icon-background">
-                <FontAwesomeIcon icon={ icon} className="icon"/>
-            </div>
-        </div>
-        {node.type}
-      </div>
-    )
-  else return <div style={{margin:'10px'}}>{node.type}</div>
-  
-}
-
 const PortCustom = (props: IPortDefaultProps) => (
   <PortDefaultOuter>
     { props.port.properties && (
@@ -151,24 +125,108 @@ const PortCustom = (props: IPortDefaultProps) => (
 
 class Flow extends React.Component {
 
-  state={
-      chart:this.props.flow.flow_body
-  }
+  constructor(props) {
+    super(props)
   
-  saveFlowIT=()=>{
-   //console.log(this.state.chart)
-    this.props.saveFlow(this.state.chart)
+    this.state = {
+       chart:this.props.flow.flow_body,
+       sidebar:'Default'
+    }
   }
 
+  NodeInnerCustom = ({ node, config }: INodeInnerDefaultProps) => {
+    var icon;
+    if (node.type === 'When someone Active on Site') 
+      icon=faBolt;
+    else if (node.type === 'Email')
+      icon=faEnvelope
+    else if (node.type === 'Update Profile Property')
+      icon=faUser
+    else if (node.type === 'Time Delay')
+      icon=faClock
+    else if (node.type === 'Conditional split' || node.type === 'Trigger split')
+      icon=faCodeBranch
+    if (icon) 
+      return (
+        <div className="placed-component-body" style={{marginTop:'10px'}}>
+          <div className="placed-component-icon-container">
+              <div className="placed-component-icon-background">
+                  <FontAwesomeIcon icon={ icon} className="icon"/>
+              </div>
+          </div>
+          {node.type}
+          <a onClick={this.NodeSettings.bind(this,node)} className="settings"><FontAwesomeIcon icon={faCogs} className="fa-1x" style={{marginRight:'10px', color:"#949AA3"}} /></a>
+          {/* <button className="btn btn-primary" onClick={this.NodeSettings.bind(this,node)} >Settings</button> */}
+        </div>
+      )
+    else 
+      return <div style={{margin:'10px'}}>{node.type}</div>    
+  }
+
+  NodeSettings = (node) => {
+    if(node.type==="When someone Active on Site")
+      this.setState({
+        sidebar:'When someone Active on Site'
+      })
+    else if(node.type==="Update Profile Property")
+      this.setState({
+        sidebar:'Update Profile Property'
+      })
+    else if(node.type==="Time Delay")
+      this.setState({
+        sidebar:'Time Delay'
+      })
+    else if(node.type==="Email"){
+      this.setState({
+        sidebar:'Email'
+      })
+    } else if(node.type==="Conditional split")
+      this.setState({
+        sidebar:'Conditional split'
+      })
+    else if(node.type==="Conditional split")
+      this.setState({
+        sidebar:'Conditional split'
+      })       
+    console.log(node)
+  }
+
+  switchtoDefaultSidebar = () => {
+    this.setState({
+        sidebar:'Default'
+      })
+  }
+
+  saveFlowIT=()=>{
+   console.log("saved",this.state.chart)
+    this.props.saveFlow(this.state.chart)
+  }  
+
   render () {     
-    if(this.props.flow.flow_id && this.props.flow.flow_name){
+   if(this.props.flow.flow_id && this.props.flow.flow_name){
       return (
         <>
           <FlowNavBar saveFlowIT={this.saveFlowIT}/>
           <Page>
-              <DragAndDropSidebar/>
+              {
+                (()=>{
+                  if(this.state.sidebar==='When someone Active on Site')
+                    return <TriggerSideBar switchtoDefaultSidebar={this.switchtoDefaultSidebar} />
+                  else if(this.state.sidebar==='Update Profile Property')
+                    return <UpdateProfileSideBar switchtoDefaultSidebar={this.switchtoDefaultSidebar} />
+                  else if(this.state.sidebar==='Time Delay')
+                    return <TimeDelaySideBar switchtoDefaultSidebar={this.switchtoDefaultSidebar} />
+                  else if(this.state.sidebar==='Email')
+                    return <EmailSideBar switchtoDefaultSidebar={this.switchtoDefaultSidebar} />
+                  else if(this.state.sidebar==='Conditional split')
+                    return <ConditionalSplitSideBar switchtoDefaultSidebar={this.switchtoDefaultSidebar} />
+                  // else if(this.state.sidebar==='Trigger split')
+                  //   return <ConditionalSplitSideBar switchtoDefaultSidebar={this.switchtoDefaultSidebar} />
+                  else return <DragAndDropSidebar/>
+                })()
+              }
               <FlowChartWithState 
-              initialValue={this.state.chart} 
+                initialValue={this.state.chart} 
                 config={{
                     smartRouting: true ,
                     snapToGrid: true,
@@ -184,9 +242,9 @@ class Flow extends React.Component {
                   Node: NodeCustom,
                   CanvasOuter: CanvasOuterCustom,
                   Port: PortCustom,
-                  NodeInner: NodeInnerCustom,
+                  NodeInner: this.NodeInnerCustom,
                 }}
-                />      
+              />                   
           </Page>
         </>
       )
@@ -194,7 +252,7 @@ class Flow extends React.Component {
       return(
         <Redirect to='/flow' />
       )
-    }
+   }
   }
 }
 
