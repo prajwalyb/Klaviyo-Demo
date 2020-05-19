@@ -13,9 +13,7 @@ export default function ( state = initialState , action ) {
         case UPDATE_FLOW:
             return {
                 ...state,
-                // flow_name:action.payload.flow_name,
-                // flow_id:action.payload.flow_id,
-                //flow_body:action.payload.flow_body
+                flow_body:action.payload
             };
         case INITIALIZE_FLOW:
             return {
@@ -32,9 +30,9 @@ export default function ( state = initialState , action ) {
         case LOAD_SELECTED_FLOWS:
             return{
                 ...state,
-                flow_name:action.paylaod.flow_name,
-                flow_id:action.paylaod.flow_id,
-                flow_body:action.paylaod.flow_body
+                flow_name:action.payload.flow_name,
+                flow_id:action.payload.flow_id,
+                flow_body:action.payload.flow_body
             }
         case NO_FLOWS:
             return {

@@ -2,13 +2,13 @@ import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { withRouter , Redirect} from 'react-router-dom';
+import { withRouter , Link } from 'react-router-dom';
 import { Table } from 'reactstrap';
 import axios from 'axios';
 
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
-import { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow} from '../actions/flowActions.js';
+import { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow } from '../actions/flowActions.js';
 
 class Flow extends React.Component {
   
@@ -18,8 +18,7 @@ class Flow extends React.Component {
     this.state = {
        modal:false,
        flowName:"",
-       flowList:[],
-       openLayout:false
+       flowList:[]
     }
     this.toggle = this.toggle.bind(this);
     this.onChange=this.onChange.bind(this);
@@ -45,7 +44,7 @@ class Flow extends React.Component {
         //console.log(newFlow)
         this.props.initializeFlow(newFlow)
         this.toggle();
-        this.props.history.push('/flow/create')
+        //this.props.history.push('/flow/create')
     }
 
   componentWillReceiveProps(nextProps){ 
@@ -59,11 +58,9 @@ class Flow extends React.Component {
       this.props.deleteFlow(id);
   }
 
-  onEditClick = ( id ) => {
-    this.props.loadSelectedFlow(id);
-    this.setState({
-      openLayout:true
-    })
+  onEditClick = async( id ) => {
+    await this.props.loadSelectedFlow(id);
+    this.props.history.push('/flow/create')
   }
 
   render () {
@@ -123,7 +120,9 @@ class Flow extends React.Component {
                   </div>
                 </ModalBody>
                 <ModalFooter>
-                  <button type="submit"  className="btn btn-primary">Create Flow</button>
+                  <button onClick={this.onSubmit}  className="btn btn-primary">
+                    <Link to="/flow/create">Create Flow</Link>
+                  </button>
                   <button className="btn" onClick={this.toggle}>Cancel</button>
                 </ModalFooter>
               </form>
@@ -141,4 +140,4 @@ const mapStateToProps = state => ({
     flow:state.flow.allFlows
 })
 
-export default connect( mapStateToProps , { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow} )(withRouter(Flow));
+export default connect( mapStateToProps , { initializeFlow , loadFlowList , deleteFlow , loadSelectedFlow } )(withRouter(Flow));

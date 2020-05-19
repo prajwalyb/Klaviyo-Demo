@@ -151,15 +151,24 @@ const PortCustom = (props: IPortDefaultProps) => (
 
 class Flow extends React.Component {
 
+  state={
+      chart:this.props.flow.flow_body
+  }
+  
+  saveFlowIT=()=>{
+   //console.log(this.state.chart)
+    this.props.saveFlow(this.state.chart)
+  }
+
   render () {     
     if(this.props.flow.flow_id && this.props.flow.flow_name){
       return (
         <>
-          <FlowNavBar/>
+          <FlowNavBar saveFlowIT={this.saveFlowIT}/>
           <Page>
               <DragAndDropSidebar/>
               <FlowChartWithState 
-                initialValue={this.props.flow.flow_body} 
+              initialValue={this.state.chart} 
                 config={{
                     smartRouting: true ,
                     snapToGrid: true,

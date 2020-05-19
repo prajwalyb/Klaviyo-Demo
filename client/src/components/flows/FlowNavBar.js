@@ -23,11 +23,11 @@ const NavComp = (props) => {
 
   const ddtoggle = () => setDropdownOpen(prevState => !prevState);
 
-    const saveFlow =(e)=>{
-        e.preventDefault();
-        props.saveFlow();
-        props.history.push('/flow')
-    }
+    // const saveFlow =(e)=>{
+    //     e.preventDefault();
+    //     props.saveFlow();
+    //     props.history.push('/flow')
+    // }
 
   return (
     <div className="topbar">
@@ -41,24 +41,17 @@ const NavComp = (props) => {
                                (props.flowName) ? props.flowName : "404"
                            }
                         </DropdownToggle>
-                        {/* <DropdownMenu>
-                            <DropdownItem>Some Action</DropdownItem>                            
-                            <DropdownItem>Foo Action</DropdownItem>
-                        </DropdownMenu> */}
                     </Dropdown>
                 </div>
                 <div className="header-primary-container">
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar className="nav">
                     <Nav className="ml-auto Nav" navbar>
-                        {/* <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Show Analytics</NavLink>
+                        <NavItem className="NavItem">
+                            <NavLink className="NavLink" onClick={props.saveFlowIT}>Save</NavLink>
                         </NavItem>
                         <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink">Manage Flow</NavLink>
-                        </NavItem>             */}
-                        <NavItem className="NavItem">
-                            <NavLink href="/" className="NavLink" onClick={saveFlow}>Save & Exit</NavLink>
+                            <NavLink href="/flow" className="NavLink">Exit</NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
@@ -74,4 +67,4 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect ( mapStateToProps , { saveFlow })(withRouter(NavComp));
+export default connect ( mapStateToProps , null )(withRouter(NavComp));

@@ -13,6 +13,6 @@ const flowSchema = new mongoose.Schema({
         type:Date,
         default:Date.now
     }
-});
+} , { minimize: false });
 
 module.exports = mongoose.model('Flow', flowSchema);

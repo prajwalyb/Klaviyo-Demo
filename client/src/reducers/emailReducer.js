@@ -18,8 +18,7 @@ export default function ( state = initialState , action ){
             return {
                 ...state,
                 email_name:action.payload.email_name,
-                email_id:action.payload.email_id,
-                email_body:{}
+                email_id:action.payload.email_id
             };
         case LOAD_ALL_EMAILS:
             return{

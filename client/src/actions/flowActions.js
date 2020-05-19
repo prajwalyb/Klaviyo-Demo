@@ -12,20 +12,20 @@ export const initializeFlow = (newFlow) => dispatch =>{
     })
 }
 
-export const saveFlow = () => ( dispatch , getState ) =>{
-    //Doubt: agar save find one and update kare to save ho jayega??
+export const saveFlow = (flow_body) => ( dispatch , getState ) =>{
     ( getState().flow.flow_name && getState().flow.flow_id ) ? 
         axios.post( `${API_URL}/flows/save` , {
             user:getState().auth.user,
             flow:{
                 flow_id:getState().flow.flow_id,
                 flow_name:getState().flow.flow_name,
-                flow_body:getState().flow.flow_body
+                flow_body:flow_body
             }
         } , tokenConfig(getState) )
         .then(res=>{
             dispatch({
-                type:UPDATE_FLOW
+                type:UPDATE_FLOW,
+                payload:flow_body
             })
             console.log(res.data)
         })
@@ -40,7 +40,7 @@ export const loadFlowList = () => {
     return async ( dispatch , getState ) => {
         await axios.get(`${API_URL}/flows/loadAll/${getState().auth.user._id} `,tokenConfig(getState))
         .then(flows=>{
-            //console.log(flows.data);
+            console.log(flows.data);
             (flows.data) ? dispatch({
                 type:LOAD_ALL_FLOWS,
                 payload: flows.data
@@ -56,10 +56,10 @@ export const loadSelectedFlow = ( flow_id ) => {
     return async ( dispatch , getState ) => {
         await axios.get(`${API_URL}/flows/${getState().auth.user._id}/loadOne/${flow_id}`,tokenConfig(getState))
         .then(item=>{
-            console.log(item)
+            //console.log(item.data)
                 dispatch({
                     type:LOAD_SELECTED_FLOWS,
-                    paylaod:item.data.flow
+                    payload:item.data
                 })
             }
         )
