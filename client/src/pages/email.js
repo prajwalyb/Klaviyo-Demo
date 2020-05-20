@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter , Table } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter , Table , Row, Col , Container } from 'reactstrap';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { withRouter , Redirect , Link } from 'react-router-dom';
@@ -63,34 +63,43 @@ class Email extends React.Component {
   render() {
     return (
       <React.Fragment>
+      <Container fluid={true}>
         <NavComp/>
-        <MainSidebar/>
+        <Row>
+          <Col xs="2">
+            <MainSidebar/>
+          </Col>
+          <Col>
         <div id="main">
             <div className="dashboard-nav-header">
-              <div className="container">
-                <div className="row">
-                <p style={{margin:'0 0 0 -90px'}}>Email Templates</p>
+              <Row>
+                <Col>
+                <p>Email Templates</p>
+                </Col>
+                <Col>
                 <button className="btn primaryButton" onClick={this.toggle} >Create Template</button>
-              </div>
+                </Col>
+              </Row>            
             </div>
-            <div className="dashboard-nav-footer"></div>
-            </div>
+            <hr/>
             <div className="Card-Table">
                 <div className="Card-Table-Inner">
-                  <Table>
+                  <Table hover borderless>
                       <tbody>
                         {
                           (this.state.emailList)?this.state.emailList.map((obj)=>{
                             return(
                               <tr>
-                                <td key={obj.email.email_id} style={{display: 'flex', alignItems: 'center', overflow: 'visible', flex: '100 0 auto', width: '100px'}}>{obj.email.email_name}</td>
-                                <div style={{position:'absolute' , display: 'flex', alignItems: 'flex-start', overflow: 'visible', justifyContent: 'flex-end', marginTop: '8px', flex: '16 0 auto',  width: '16px', right:'250px'}}>
+                              <Col>
+                                <td key={obj.email.email_id}>{obj.email.email_name}</td>
+                              </Col>
+                                <td key={obj.email.email_id}>
                                   <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.email.email_id)} >Delete</button>
                                   <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.email.email_id)}>Edit</button>
-                                </div>                      
+                                </td>                      
                               </tr>
                             )
-                          }):<h1>Loading</h1>
+                          }):<div class="spinner-border" style={{marginLeft:'50%'}}/>
                         }
                       </tbody>
                   </Table>
@@ -113,14 +122,17 @@ class Email extends React.Component {
                     </div>
                   </ModalBody>
                   <ModalFooter>
-                    <button onClick={this.onSubmit} className="btn btn-primary">
+                    <button onClick={this.onSubmit} className="btn modalbutton">
                       <Link to="/email-templates/create">Create Template</Link>
-                    </ button>
-                    <button className="btn" onClick={this.toggle}>Cancel</button>
+                    </button>
+                    <button onClick={this.toggle}>Cancel</button>
                   </ModalFooter>
                 </form>
               </Modal>  
         </div>
+        </Col>
+        </Row>
+        </Container>
       </React.Fragment>
     );
   }

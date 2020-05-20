@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBolt, faEnvelope , faUser , faClock , faCodeBranch, faCogs } from '@fortawesome/free-solid-svg-icons'
+import { faBolt, faEnvelope , faUser , faClock , faCodeBranch, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FlowChartWithState , INodeDefaultProps , IPortDefaultProps } from '@mrblenny/react-flow-chart'
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { withRouter , Redirect } from 'react-router-dom';
+import { Container, Row, Col , Alert } from 'reactstrap';
 
 import { chartSimple } from '../components/flows/DefaultChart'
 import FlowNavBar from '../components/flows/FlowNavBar.js';
@@ -14,6 +14,8 @@ import { DragAndDropSidebar } from '../components/flows/Flowchart-Sidebar';
 import { TriggerSideBar , UpdateProfileSideBar , TimeDelaySideBar , EmailSideBar , ConditionalSplitSideBar } from '../components/flows/SelectedItemSidebar';
 import { API_URL } from '../helpers/utils.js';
 import { saveFlow } from '../actions/flowActions.js';
+import { clearNotifications} from '../actions/popUpActions.js';
+
 
 const DefaultNode = styled.div`
   position: absolute;
@@ -27,6 +29,10 @@ const DefaultNode = styled.div`
   justify-content: space-between;
   display:flex;
   flex-direction: column;
+  &:hover{
+        box-shadow: 0 0 6px rgba(43,152,211,.5);
+        border: 2px solid rgba(43,152,211,.5);
+  }
 `
 const Actions = styled.div`
   position: absolute;
@@ -40,6 +46,10 @@ const Actions = styled.div`
   justify-content: space-between;
   display:flex;
   flex-direction: column;
+   &:hover{
+        box-shadow: 0 0 6px rgba(43,152,211,.5);
+        border: 2px solid rgba(43,152,211,.5);
+  }
 `
 const Timing = styled.div`
   position: absolute;
@@ -54,6 +64,10 @@ const Timing = styled.div`
   justify-content: space-between;
   display:flex;
   flex-direction: column;
+  &:hover{
+        box-shadow: 0 0 6px rgba(43,152,211,.5);
+        border: 2px solid rgba(43,152,211,.5);
+  }
 `
 const EndNode = styled.div`
   position: absolute;
@@ -65,6 +79,10 @@ const EndNode = styled.div`
   justify-content: space-between;
   display:flex;
   flex-direction: column;
+  &:hover{
+        box-shadow: 0 0 6px rgba(43,152,211,.5);
+        border: 2px solid rgba(43,152,211,.5);
+  }
 `
 const CanvasOuterCustom = styled.div`
   position: relative;
@@ -86,7 +104,7 @@ const PortDefaultOuter = styled.div`
 const NodeCustom = React.forwardRef(({ node, children, ...otherProps }: INodeDefaultProps, ref: React.Ref<HTMLDivElement>) => {
   if (node.type === 'Email' || node.type === 'Update Profile Property') {
     return (
-      <Actions ref={ref} {...otherProps}>
+      <Actions ref={ref} {...otherProps} >
           {children}
       </Actions>
     )
@@ -134,6 +152,23 @@ class Flow extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps){
+        const { popUp } = this.props;
+        if(popUp !== prevProps.popUp){
+            if(popUp.notification){
+                this.setState({
+                    notification:popUp.notification
+                })
+                setTimeout(() => {
+                    this.props.clearNotifications();   
+                }, 1700);
+            }
+        else this.setState({
+                notification:null
+            }) 
+        }          
+    }
+
   NodeInnerCustom = ({ node, config }: INodeInnerDefaultProps) => {
     var icon;
     if (node.type === 'When someone Active on Site') 
@@ -155,8 +190,7 @@ class Flow extends React.Component {
               </div>
           </div>
           {node.type}
-          <a onClick={this.NodeSettings.bind(this,node)} className="settings"><FontAwesomeIcon icon={faCogs} className="fa-1x" style={{marginRight:'10px', color:"#949AA3"}} /></a>
-          {/* <button className="btn btn-primary" onClick={this.NodeSettings.bind(this,node)} >Settings</button> */}
+          <a onClick={this.NodeSettings.bind(this,node)} className="settings"><FontAwesomeIcon icon={faEllipsisH} className="fa-1x" style={{marginRight:'10px', color:"#949AA3"}} /></a>
         </div>
       )
     else 
@@ -206,7 +240,13 @@ class Flow extends React.Component {
    if(this.props.flow.flow_id && this.props.flow.flow_name){
       return (
         <>
+          <Container fluid={true}>
           <FlowNavBar saveFlowIT={this.saveFlowIT}/>
+          {
+              this.state.notification ? (
+                  <Alert color="success" style={{marginLeft:'40%' , textAlign:'center', fontSize:'20px', width:'25%'}}>{this.state.notification}</Alert>  
+              ) : null                                                         
+          }
           <Page>
               {
                 (()=>{
@@ -244,8 +284,9 @@ class Flow extends React.Component {
                   Port: PortCustom,
                   NodeInner: this.NodeInnerCustom,
                 }}
-              />                   
+              />                 
           </Page>
+          </Container>
         </>
       )
     } else {
@@ -258,7 +299,8 @@ class Flow extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  flow: state.flow
+  flow: state.flow,
+  popUp:state.popUp
 })
 
-export default connect( mapStateToProps , { saveFlow } )(withRouter(Flow));
+export default connect( mapStateToProps , { saveFlow ,clearNotifications } )(withRouter(Flow));

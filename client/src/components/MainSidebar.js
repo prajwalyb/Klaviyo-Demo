@@ -1,17 +1,9 @@
 import * as React from 'react'
-import styled from 'styled-components'
 import { MainSidebarItem } from "./MainSidebarItem" 
 
-const Sidepanel = styled.div`
-    width: 204px;
-    float: left;
-    box-sizing: border-box;
-    background: #DFE3E6;
-    overflow: auto;
-`
 
  export const MainSidebar = () =>(
-    <Sidepanel>
+    <div className="sidebar">
         <div className="list-section">
             <MainSidebarItem
                 text="Dashboard"
@@ -89,5 +81,5 @@ const Sidepanel = styled.div`
                 href='/'
             />
         </div>
-    </Sidepanel>
+    </div>
 )

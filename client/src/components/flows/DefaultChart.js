@@ -16,7 +16,7 @@ export const chartSimple = {
             id: "port1",
             type: "bottom",
             properties: {
-              linkColor: '#BAC2CA',
+              linkColor: 'rgba(43,152,211,.5)',
             }
           }
         }

@@ -6,29 +6,29 @@ export const MainSidebarItem = ({ text, id ,href}) => {
     var icon;
     if(id==='dashboard')
         icon=faHome
-    if(id==='campaigns')
+    else if(id==='campaigns')
         icon=faPaperPlane
-    if(id==='flows')
+    else if(id==='flows')
         icon=faStream
-    if(id==='emailtemplate')
+    else if(id==='emailtemplate')
         icon=faNewspaper
-    if(id==='listsegments')
+    else if(id==='listsegments')
         icon=faUsers    
-    if(id==='profiles')
+    else if(id==='profiles')
         icon=faUser
-    if(id==='metrics')
+    else if(id==='metrics')
         icon=faChartBar    
-    if(id==='integrations')
+    else if(id==='integrations')
         icon=faCloud
-    if(id==='datafeed')
+    else if(id==='datafeed')
         icon=faWifi    
-    if(id==='signupforms')
+    else if(id==='signupforms')
         icon=faList
-    if(id==='prefpages')
+    else if(id==='prefpages')
         icon=faFile
-    if(id==='imagelibrary')
+    else if(id==='imagelibrary')
         icon=faImage
-    if(id==='tags')
+    else if(id==='tags')
         icon=faTag
     return (
             <div className="list">

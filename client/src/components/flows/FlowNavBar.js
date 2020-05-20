@@ -23,12 +23,6 @@ const NavComp = (props) => {
 
   const ddtoggle = () => setDropdownOpen(prevState => !prevState);
 
-    // const saveFlow =(e)=>{
-    //     e.preventDefault();
-    //     props.saveFlow();
-    //     props.history.push('/flow')
-    // }
-
   return (
     <div className="topbar">
         <div className="container-fluid">

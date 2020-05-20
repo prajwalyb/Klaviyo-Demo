@@ -1,7 +1,7 @@
 import { UPDATE_FLOW , INITIALIZE_FLOW , LOAD_ALL_FLOWS , NO_FLOWS , DELETE_FLOW , LOAD_SELECTED_FLOWS } from "./types.js";
 
 import axios from 'axios';
-import { returnErrors , clearErrors } from './popUpActions';
+import { returnErrors , clearErrors , returnNotifications } from './popUpActions';
 import { tokenConfig } from './authActions';
 import { API_URL } from '../helpers/utils.js';
 
@@ -28,6 +28,7 @@ export const saveFlow = (flow_body) => ( dispatch , getState ) =>{
                 payload:flow_body
             })
             console.log(res.data)
+            dispatch(returnNotifications("Flow Saved"))
         })
         .catch(err=>{
             dispatch(returnErrors(err.data, err.status,'FLOW_NOT_SAVED'))

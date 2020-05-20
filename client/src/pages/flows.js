@@ -1,10 +1,8 @@
 import React from 'react';
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { connect } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { withRouter , Link } from 'react-router-dom';
-import { Table } from 'reactstrap';
-import axios from 'axios';
+import { Container, Row, Col , Table , Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
@@ -67,37 +65,45 @@ class Flow extends React.Component {
     //if(!this.state.openLayout)
       return (
        <React.Fragment>
+       <Container fluid={true}>
         <NavComp/>
-        <MainSidebar/>
+        <Row>
+          <Col xs="2">
+            <MainSidebar/>
+          </Col>
+        <Col>
         <div id="main">
             <div className="dashboard-nav-header">
-                <div className="container">
-                  <div className="row">
-                    <p style={{margin:'0 0 0 -90px'}}>Flows</p>
-                    <button className="btn primaryButton" onClick={this.toggle}>
-                      Create Flow
-                    </button>
-                  </div>
-                </div>
-                <div className="dashboard-nav-footer"></div>
+              <Row>
+                <Col>
+                <p>Flows</p>
+                </Col>
+                <Col>
+                <button className="btn primaryButton" onClick={this.toggle}>
+                  Create Flow
+                </button>
+                </Col>
+              </Row>
             </div>
-            <br/>
+            <hr/>
              <div className="Card-Table">
               <div className="Card-Table-Inner">
-                <Table>
+                <Table hover borderless>
                 <tbody>
                 {
                   (this.state.flowList)?this.state.flowList.map((obj)=>{
                     return(
                       <tr>
-                        <td key={obj.flow.flow_id} style={{display: 'flex', alignItems: 'center', overflow: 'visible', flex: '100 0 auto', width: '100px'}}>{obj.flow.flow_name}</td>
-                        <div style={{position:'absolute' , display: 'flex', alignItems: 'flex-start', overflow: 'visible', justifyContent: 'flex-end', marginTop: '8px', flex: '16 0 auto',  width: '16px', right:'250px'}}>
+                      <Col>
+                        <td key={obj.flow.flow_id}>{obj.flow.flow_name}</td>
+                      </Col>   
+                        <td key={obj.flow.flow_id}>
                           <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.flow.flow_id)} >Delete</button>
                           <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.flow.flow_id)}>Edit</button>
-                        </div>                      
+                        </td>  
                       </tr>
                     )
-                  }):<h1>Loading</h1>
+                  }):<div class="spinner-border" style={{marginLeft:'50%'}}/>
                 }
                 </tbody>
             </Table>
@@ -120,14 +126,17 @@ class Flow extends React.Component {
                   </div>
                 </ModalBody>
                 <ModalFooter>
-                  <button onClick={this.onSubmit}  className="btn btn-primary">
+                  <button onClick={this.onSubmit}  className="btn modalbutton">
                     <Link to="/flow/create">Create Flow</Link>
                   </button>
-                  <button className="btn" onClick={this.toggle}>Cancel</button>
+                  <button onClick={this.toggle}>Cancel</button>
                 </ModalFooter>
               </form>
             </Modal>  
         </div>
+        </Col>
+        </Row>
+      </Container>
       </React.Fragment>
     )
     //Redirect to /create route

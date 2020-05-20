@@ -9,17 +9,14 @@ const Sidebar = styled.div`
     z-index: 5;
     background: #FFF;
     border-right: 1px solid #DFE3E6;
-    max-width: 350px;
     flex: 0 0 350px;
     display: flex;
     flex-direction: column;
-    order: -1;
 `
 
 export const TriggerSideBar = (props) => {
     //Currently static
     return(
-        <Page>
             <Sidebar>
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">
@@ -54,14 +51,12 @@ export const TriggerSideBar = (props) => {
                     <button onClick={props.switchtoDefaultSidebar} className="btn btn-primary">Done</button>
                 </div>        
             </Sidebar>
-        </Page>
     )
 }
 
 export const UpdateProfileSideBar = (props) => {
     //Currently static
     return(
-        <Page>
             <Sidebar>
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">
@@ -82,7 +77,6 @@ export const UpdateProfileSideBar = (props) => {
                     <button onClick={props.switchtoDefaultSidebar} className="btn btn-primary">Done</button>
                 </div>        
             </Sidebar>
-        </Page>
     )
 }
 
@@ -91,7 +85,6 @@ export const TimeDelaySideBar = (props) => {
     const toggleDropDown = () => setDropdownOpen(!dropdownOpen);
 
     return(
-        <Page>
             <Sidebar>
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">
@@ -141,14 +134,12 @@ export const TimeDelaySideBar = (props) => {
                     <button onClick={props.switchtoDefaultSidebar} className="btn btn-primary">Done</button>
                 </div>        
             </Sidebar>
-        </Page>
     )
 }
 
 export const EmailSideBar = (props) => {
     //Currently static
     return(
-        <Page>
             <Sidebar>
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">
@@ -169,14 +160,12 @@ export const EmailSideBar = (props) => {
                     <button onClick={props.switchtoDefaultSidebar} className="btn btn-primary">Done</button>
                 </div>        
             </Sidebar>
-        </Page>
     )
 }
 
 export const ConditionalSplitSideBar = (props) => {
     //Currently static
     return(
-        <Page>
             <Sidebar>
                 <div className="sidebar-header">
                     <div className="sidebar-header-title">
@@ -197,7 +186,6 @@ export const ConditionalSplitSideBar = (props) => {
                     <button onClick={props.switchtoDefaultSidebar} className="btn btn-primary">Done</button>
                 </div>        
             </Sidebar>
-        </Page>
     )
 }
 

@@ -26,7 +26,6 @@ const Sidebar = styled.div`
 `
 
 export const DragAndDropSidebar = () => (
-  <Page>    
     <Sidebar>
       <Message>
         Actions
@@ -159,5 +158,4 @@ export const DragAndDropSidebar = () => (
         }}        
       />
     </Sidebar>
-  </Page>
 )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Container, Row, Jumbotron } from 'reactstrap';
 
 import { logoutUser } from '../actions/authActions.js';
 
@@ -11,12 +12,16 @@ export class logout extends Component {
     }
     render() {
         return (
-            <div className="container">
-            <div className="row">
-                <h1>You have been logged out</h1>
-            </div>                
-            <Link to="/">Log in Again</Link>
-            </div>
+            <Container>
+                <Jumbotron>
+                    <Row>
+                        <h1>You have been logged out</h1>
+                    </Row>                
+                    <Row style={{marginTop:'60px'}}>
+                        <button className="btn btnTable"><a href="/">Log in Again</a></button>
+                    </Row>
+                </Jumbotron>
+            </Container>
         )
     }
 }
