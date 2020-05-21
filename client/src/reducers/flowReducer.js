@@ -5,7 +5,7 @@ const initialState={
     flow_name: null,
     flow_id: null,
     flow_body: null,
-    allFlows:null
+    allFlows:[]
 }
 
 export default function ( state = initialState , action ) {

@@ -90,20 +90,20 @@ class Flow extends React.Component {
               <div className="Card-Table-Inner">
                 <Table hover borderless>
                 <tbody>
-                {
+                { 
                   (this.state.flowList)?this.state.flowList.map((obj)=>{
                     return(
-                      <tr>
+                      <tr key={obj.flow.flow_id}>
                       <Col>
-                        <td key={obj.flow.flow_id}>{obj.flow.flow_name}</td>
+                        <td>{obj.flow.flow_name}</td>
                       </Col>   
-                        <td key={obj.flow.flow_id}>
+                        <td>
                           <button className="btn btnTable" onClick={this.onDeleteClick.bind(this,obj.flow.flow_id)} >Delete</button>
                           <button className="btn btnTable" onClick={this.onEditClick.bind(this,obj.flow.flow_id)}>Edit</button>
                         </td>  
                       </tr>
                     )
-                  }):<div class="spinner-border" style={{marginLeft:'50%'}}/>
+                  }):<div className="spinner-border" style={{marginLeft:'50%'}}/>
                 }
                 </tbody>
             </Table>

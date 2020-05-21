@@ -75,7 +75,7 @@ router.post('/login',(req,res)=>{
 router.get('/auth', auth , (req,res)=>{
     User.findOne(req.user.id)
         .select('-password')
-        .then(user=>res.json(user))
+        .then(user=>{return res.json(user)})
 })
 
 module.exports=router;

@@ -33,7 +33,7 @@ router.post('/save',(req,res)=>{
 router.get('/loadAll/:user_id', async (req,res)=>{
     let flows= await Flow.find({ "user._id":req.params.user_id})
     if(flows)
-        return res.status(200).json(flows);
+        res.status(200).json(flows);
     return null
 })
 

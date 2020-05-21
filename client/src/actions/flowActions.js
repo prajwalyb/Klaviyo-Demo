@@ -38,8 +38,8 @@ export const saveFlow = (flow_body) => ( dispatch , getState ) =>{
 }
 
 export const loadFlowList = () => {
-    return async ( dispatch , getState ) => {
-        await axios.get(`${API_URL}/flows/loadAll/${getState().auth.user._id} `,tokenConfig(getState))
+    return ( dispatch , getState ) => {
+        axios.get(`${API_URL}/flows/loadAll/${getState().auth.user._id}`,tokenConfig(getState))
         .then(flows=>{
             console.log(flows.data);
             (flows.data) ? dispatch({

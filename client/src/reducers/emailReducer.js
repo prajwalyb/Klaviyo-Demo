@@ -4,7 +4,7 @@ const initialState={
     email_name: null,
     email_id: null,
     email_body: null,
-    allemails:null
+    allemails:[]
 }
 
 export default function ( state = initialState , action ){

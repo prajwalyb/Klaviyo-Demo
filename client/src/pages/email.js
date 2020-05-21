@@ -16,8 +16,7 @@ class Email extends React.Component {
     this.state = {
        modal:false,
        emailName:"",
-       emailList:[],
-       openLayout:false
+       emailList:[]
     }
     this.toggle = this.toggle.bind(this);
     this.onChange=this.onChange.bind(this);
