@@ -99,7 +99,7 @@ class Email extends React.Component {
                                 </td>                      
                               </tr>
                             )
-                          }):<div class="spinner-border" style={{marginLeft:'50%'}}/>
+                          }):<div className="spinner-border" style={{marginLeft:'50%'}}/>
                         }
                       </tbody>
                   </Table>

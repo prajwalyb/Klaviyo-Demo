@@ -7,7 +7,7 @@ const bodyParser=require('body-parser');
 const cors=require('cors');
 
 var app = express();
-app.use(cors({}));
+app.use(cors());
 
 //Import All Middlewares Here
 const auth = require('./middlewares/auth.js');
@@ -25,6 +25,10 @@ const PORT = process.env.PORT || 8081;
 
 if(process.env.NODE_ENV==='production'){
     app.use(express.static('client/build'))
+
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'client','build','index.html'))
+    })
 }
 
 app.listen(PORT,()=>{
