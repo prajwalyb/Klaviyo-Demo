@@ -7,7 +7,7 @@ InputGroupAddon} from 'reactstrap';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
 
-export default class createCampaigns extends Component {
+class createCampaigns extends Component {
     render() {
         return (
             <>
@@ -34,13 +34,13 @@ export default class createCampaigns extends Component {
                                 <Col xs={6}>
                                 <FormGroup>
                                     <Label>Campaign Name</Label>
-                                    <Input type="text" name="campaignName" placeholder="Enter Campaign Name" />
+                                    <Input type="text" name="campaignName" value={this.props.campaign.campaign_name} placeholder="Enter Campaign Name" />
                                 </FormGroup>
                                 </Col>
                                 <Col xs={6}>
                                 <FormGroup>
                                     <Label>Tag</Label>
-                                    <Input type="select" name="campaignTag">
+                                    <Input type="select" name="campaignTag" disabled>
                                         <option>Default Select</option>
                                     </Input>
                                 </FormGroup>
@@ -56,23 +56,23 @@ export default class createCampaigns extends Component {
                             <FormGroup>
                                 <p>Use Smart sending ?</p>
                                 <FormGroup check>
-                                <Label check>
-                                    <Input type="radio" name="radio1" />{' '}
-                                    Yes, do not send this campaign to people who received an email in the last 16 hours.
-                                </Label>
+                                    <Label check>
+                                        <Input type="radio" name="radio1"/>{' '}
+                                        Yes, do not send this campaign to people who received an email in the last 16 hours.
+                                    </Label>
                                 </FormGroup>
                                 <FormGroup check>
-                                <Label check>
-                                    <Input type="radio" name="radio2" />{' '}                                
-                                    No, send this campaign to everyone.
-                                </Label>
+                                    <Label check>
+                                        <Input type="radio" name="radio1"/>{' '}                                
+                                        No, send this campaign to everyone.
+                                    </Label>
                                 </FormGroup>
                             </FormGroup>     
                             <FormGroup>
                                 <p>Use UTM Tracking?</p>
                                 <FormGroup check>
                                 <Label check>
-                                    <Input type="radio" name="radio1" />{' '}                                
+                                    <Input type="radio" name="radio2" />{' '}                                
                                     Do not use UTM Tracking for this campaign.
                                 </Label>
                                 </FormGroup>
@@ -108,3 +108,8 @@ export default class createCampaigns extends Component {
         )
     }
 }
+const mapStateToProps = ( state ) => ({
+    campaign:state.campaign
+})
+
+export default connect( mapStateToProps , null )(createCampaigns);
