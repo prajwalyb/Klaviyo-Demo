@@ -3,17 +3,23 @@ import { connect } from 'react-redux';
 import { withRouter , Redirect } from 'react-router-dom';
 import { Container, Row, Col , Alert , Button, Form, FormGroup, Label, Input , InputGroup ,
 InputGroupAddon , Modal , ModalHeader, ModalBody, ModalFooter , ListGroup , ListGroupItem } from 'reactstrap';
+import parse from 'html-react-parser';
 
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
 import { loadEmailList } from '../actions/emailActions.js';
+import { saveCampaign } from '../actions/campaignActions.js';
 
 class createCampaigns extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
-             modal:false,             
+            modal:false,
+            from:"",
+            replyTo:"",
+            subject:"",
+            previewText:""
         }
         this.toggle = this.toggle.bind(this);
     }
@@ -30,10 +36,28 @@ class createCampaigns extends Component {
     }
 
     reviewFunction = (email) => {
-        console.log(email)
+        console.log(email);
+        this.setState({
+            email_body:email.email_body,
+            email_id:email.email_id,
+            email_html:email.email_html
+        })
+        this.toggle();
+    }
+
+    onChange=(e)=>{
+        this.setState({[e.target.name]:e.target.value})
+    }
+
+    submitCampaign=(e)=>{
+        e.preventDefault();
+        this.props.saveCampaign(this.state);
+        alert("Campaign saved");
+        this.props.history.push('/campaigns')
     }
 
     render() {
+        if( this.props.campaign.campaign_name && this.props.campaign.campaign_id)
         return (
             <>
             <Container fluid={true}>
@@ -54,18 +78,20 @@ class createCampaigns extends Component {
                     <hr/>
                     <div className="Card-Table" style={{padding:'30px'}}>
                         <div className="Card-Table-Inner">
-                        <Form>
+                        <Form onSubmit={this.submitCampaign}>
                             <Row form>
                                 <Col xs={6}>
                                 <FormGroup>
                                     <Label>From</Label>
-                                    <Input type="text" name="from"/>
+                                    <Input type="text" name="from" value={this.state.from}
+                                    onChange={this.onChange} required/>
                                 </FormGroup>
                                 </Col>
                                 <Col xs={6}>
                                 <FormGroup>
                                     <Label>From / Reply-To Email</Label>
-                                    <Input type="email" name="replyToEmail"></Input>
+                                    <Input type="email" name="replyTo" value={this.state.replyTo} onChange={this.onChange}
+                                    required></Input>
                                 </FormGroup>
                                 </Col>
                             </Row>                   
@@ -73,34 +99,60 @@ class createCampaigns extends Component {
                                 <Col xs={6}>
                                 <FormGroup>
                                     <Label>Subject</Label>
-                                    <Input type="text" name="subject"/>
+                                    <Input type="text" name="subject" value={this.state.subject}
+                                    onChange={this.onChange} required/>
                                 </FormGroup>
                                 </Col>
                                 <Col xs={6}>
                                 <FormGroup>
                                     <Label>Preview Text</Label>
-                                    <Input type="email" name="replyToEmail" disabled></Input>
+                                    <Input type="email" name="previewText" value={this.state.previewText}
+                                    onChange={this.onChange} disabled></Input>
                                 </FormGroup>
                                 </Col>
                             </Row>
+                            <hr/>
+                            <Row>
+                            {
+                                (()=>{
+                                    if(this.state.email_id && this.state.email_body){
+                                        return (
+                                            <>
+                                                <Col style={{margin:'0 20%', border:'box-shadow: 0 0 6px rgba(43,152,211,.5)',border:'2px solid rgba(43,152,211,.5)'}}>
+                                                    {parse(this.state.email_html)}
+                                                </Col>
+                                                <Button className="primaryButton" onClick={()=>{
+                                                    this.setState({
+                                                        email_body:"",
+                                                        email_id:"",
+                                                        email_html:""
+                                                    })
+                                                }}>Change Layout</Button>
+                                            </>
+                                        )
+                                    } else return (
+                                        <>
+                                            <Col xs={4}>
+                                            <Button>Rich HTML</Button>
+                                            </Col>
+                                            <Col xs={4}>
+                                                <Button>Text Based</Button>
+                                            </Col>
+                                            <Col xs={4}>
+                                                <Button onClick={this.populateEmailList}>Use Templates</Button>
+                                            </Col>                                    
+                                        </>
+                                    )                                    
+                                })()
+                            }
+                            </Row>
+                            <br/>
                             <Row>
                                 <Col xs={3}>
-                                <Button className="btn"> Save Changes</Button>
+                                <Button className="btn">Save Changes</Button>
                                 </Col>
                             </Row>
                         </Form>
-                        <hr/>
-                        <Row>
-                            <Col xs={4}>
-                                <Button>Rich HTML</Button>
-                            </Col>
-                            <Col xs={4}>
-                                <Button>Text Based</Button>
-                            </Col>
-                            <Col xs={4}>
-                                <Button onClick={this.populateEmailList}>Use Templates</Button>
-                            </Col>
-                        </Row>
                         <hr/>
                         </div>
                     </div>
@@ -137,12 +189,14 @@ class createCampaigns extends Component {
             </Modal> 
             </Container>
             </>
-        )
+        ) 
+       else return<Redirect to="/campaigns/create"/>
     }
 }
 
 const mapStateToProps = ( state ) => ({
-    allemails:state.email.allemails
+    allemails:state.email.allemails,
+    campaign:state.campaign
 })
 
-export default connect( mapStateToProps , { loadEmailList } )(createCampaigns);
+export default connect( mapStateToProps , { loadEmailList , saveCampaign } )(createCampaigns);
