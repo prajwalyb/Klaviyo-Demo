@@ -48,7 +48,7 @@ class createCampaigns extends Component {
                     <div className="dashboard-nav-header">
                     <Row>
                         <Col className="campaignHead">
-                        <p ><a href="/campaigns">Campaigns</a> > Edit</p>
+                        <p ><a href="/campaigns">Campaigns</a> > Edit <strong>{this.state.campaign_name}</strong></p>
                         </Col>
                     </Row>
                     </div>

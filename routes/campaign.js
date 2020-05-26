@@ -16,8 +16,8 @@ router.post('/save',(req,res)=>{
                 .then(item=>res.json("Campaign Added"))
                 .catch(err=>console.log(err))
         } else {
-            newCampaign.findOneAndUpdate({"user._id":req.body.user._id,"campaign.campaign_id":req.body.campaign.campaign_id},{
-                email:req.body.campaign
+            Campaign.findOneAndUpdate({"user._id":req.body.user._id,"campaign.campaign_id":req.body.campaign.campaign_id},{
+                campaign:req.body.campaign
             },{ new: true ,  useFindAndModify: false })
                 .then((item)=>{
                     res.status(200).json({msg:"Campaign Updated"});

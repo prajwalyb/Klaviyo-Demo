@@ -10,7 +10,8 @@ const initialState={
         subject:"",
         previewText:"",
         email_name:"",
-        email_id:""
+        email_id:"",
+        email_html:""
     },
     allcampaigns:[]
 }
@@ -43,17 +44,18 @@ export default function ( state = initialState , action ) {
         case LOAD_SELECTED_CAMPAIGN:
             return{
                 ...state,
-                // campaign_name:action.payload.campaign_name,
-                // campaign_id: action.payload.campaign_id,
-                // smartSending:action.payload.smartSending,    
-                // campaign_content:{
-                //     from:action.payload.campaign_content.from,
-                //     replyTo:action.payload.campaign_content.replyTo,
-                //     subject:action.payload.campaign_content.subject,
-                //     previewText:action.payload.campaign_content.previewText,
-                //     email_name:action.payload.campaign_content.email_name,
-                //     email_id:action.payload.campaign_content.email_id
-                // }
+                campaign_name:action.payload.campaign_name,
+                campaign_id: action.payload.campaign_id,
+                smartSending:action.payload.smartSending,    
+                campaign_content:{
+                    from:action.payload.campaign_content.from,
+                    replyTo:action.payload.campaign_content.replyTo,
+                    subject:action.payload.campaign_content.subject,
+                    previewText:action.payload.campaign_content.previewText,
+                    email_name:action.payload.campaign_content.email_name,
+                    email_id:action.payload.campaign_content.email_id,
+                    email_html:action.payload.campaign_content.email_html
+                }
             };
         case NO_CAMPAIGNS:
             return{

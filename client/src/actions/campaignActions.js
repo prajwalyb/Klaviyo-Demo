@@ -31,7 +31,8 @@ export const saveCampaign = ( data ) => ( dispatch , getState ) =>{
                 subject:data.subject,
                 previewText:data.previewText,
                 email_name:data.email_name,
-                email_id:data.email_id
+                email_id:data.email_id,
+                email_html:data.email_html
             }
         }
     } , tokenConfig(getState) )
@@ -88,10 +89,10 @@ export const loadSelectedCampaign = ( campaign_id ) => {
     return async ( dispatch , getState ) => {
         await axios.get(`${API_URL}/campaigns/${getState().auth.user._id}/loadOne/${campaign_id}`,tokenConfig(getState))
         .then(item=>{
-            console.log(item.data)
+            console.log(item.data.campaign)
                 dispatch({
                     type:LOAD_SELECTED_CAMPAIGN,
-                    // paylaod:item.data.campaign
+                    payload:item.data.campaign
                 })
             }
         )

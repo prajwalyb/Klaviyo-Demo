@@ -38,7 +38,7 @@ class createCampaigns extends Component {
     reviewFunction = (email) => {
         console.log(email);
         this.setState({
-            email_body:email.email_body,
+            email_name:email.email_name,
             email_id:email.email_id,
             email_html:email.email_html
         })
@@ -54,6 +54,18 @@ class createCampaigns extends Component {
         this.props.saveCampaign(this.state);
         alert("Campaign saved");
         this.props.history.push('/campaigns')
+    }
+
+    componentDidMount(){
+        this.setState({
+            from:this.props.campaign.campaign_content.from,
+            replyTo:this.props.campaign.campaign_content.replyTo,
+            subject:this.props.campaign.campaign_content.subject,
+            previewText:this.props.campaign.campaign_content.previewText,
+            email_id:this.props.campaign.campaign_content.email_id,
+            email_name:this.props.campaign.campaign_content.email_name,
+            email_html:this.props.campaign.campaign_content.email_html,
+        })
     }
 
     render() {
@@ -115,7 +127,7 @@ class createCampaigns extends Component {
                             <Row>
                             {
                                 (()=>{
-                                    if(this.state.email_id && this.state.email_body){
+                                    if(this.state.email_id && this.state.email_name){
                                         return (
                                             <>
                                                 <Col style={{margin:'0 20%', border:'box-shadow: 0 0 6px rgba(43,152,211,.5)',border:'2px solid rgba(43,152,211,.5)'}}>

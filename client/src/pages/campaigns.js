@@ -57,7 +57,7 @@ class campaigns extends Component {
 
     onEditClick = async( id ) => {
         await this.props.loadSelectedCampaign(id);
-        //this.props.history.push('/email-templates/create')
+        this.props.history.push('/campaigns/create')
     }
 
     render() {
