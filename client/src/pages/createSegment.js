@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
 import { SegmentItem , SegmentItemOR } from '../components/listsAndSegment/SegmentItem.js';
+import { saveSegment } from '../actions/segmentActions.js';
 
 class createSegment extends Component {
     constructor(props) {
@@ -50,6 +51,12 @@ class createSegment extends Component {
             arr:this.state.arr
         })
         console.log(this.state.arr)
+    }
+
+    onSubmit=(e)=>{
+        e.preventDefault();
+        console.log(this.state.arr)
+        this.props.saveSegment(this.state.arr);
     }
 
     render() {
@@ -115,7 +122,8 @@ class createSegment extends Component {
                                             </div>
                                         )
                                     })
-                                }                            
+                                }
+                                <Button onClick={this.onSubmit}>Save Segment</Button>                            
                             </Form>
                         </div>
                     </div>
@@ -128,4 +136,8 @@ class createSegment extends Component {
     }
 }
 
-export default createSegment;
+// const mapStateToProps = state => ({
+    
+// })
+
+export default connect( null , { saveSegment })(createSegment);
