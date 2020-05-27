@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter , Redirect , Link} from 'react-router-dom';
 import { Container, Row, Col , Alert , Button, Form, FormGroup, Label, Input , InputGroup ,
 InputGroupAddon } from 'reactstrap';
+import { v4 as uuidv4 } from 'uuid';
 
 import NavComp from '../components/MainNavbar.js';
 import { MainSidebar } from '../components/MainSidebar.js';
@@ -13,13 +14,42 @@ class createSegment extends Component {
         super(props)
     
         this.state = {
-            defination:[]
+            arr:[{AND_id:uuidv4()}]
         }
     }
     
-    componentDidMount(){
-        //this.state.defination.push(<SegmentItem/>)
-        console.log(this.state.defination)
+    addAndComponent=()=>{
+        this.state.arr.push({AND_id:uuidv4()})
+        this.setState({
+            arr:this.state.arr
+        })
+        console.log(this.state.arr)
+    }
+
+    removeAndComponent=(id)=>{
+        if ( this.state.arr.length > 1 ){
+            var newArr=[]
+            this.state.arr.forEach(element => {
+                if(element.AND_id!=id){
+                    newArr.push(element)
+                }
+            });
+            console.log(newArr)
+            this.setState({arr:newArr})
+            //Deleting correct value but not rendering
+        }
+    }
+
+    saveAndComponent = ( orArr , AND_id ) => {
+        this.state.arr.forEach(element => {
+            if(element.AND_id===AND_id){
+                element.orArr=orArr
+            }
+        });
+        this.setState({
+            arr:this.state.arr
+        })
+        console.log(this.state.arr)
     }
 
     render() {
@@ -67,7 +97,25 @@ class createSegment extends Component {
                                     </FormGroup>
                                     </Col>
                                 </Row>
-                                <SegmentItemOR/>
+                                {
+                                    this.state.arr.map(item=>{
+                                            return (
+                                            <div>
+                                                <Row>
+                                                    <SegmentItemOR AND_id={item.AND_id} saveAndComponent={this.saveAndComponent}/>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        <Button onClick={this.addAndComponent} >AND</Button>
+                                                    </Col>
+                                                    <Col>
+                                                        <Button onClick={this.removeAndComponent.bind(this,item.AND_id)}>Remove</Button>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        )
+                                    })
+                                }                            
                             </Form>
                         </div>
                     </div>
