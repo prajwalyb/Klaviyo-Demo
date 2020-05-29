@@ -10,7 +10,7 @@ import { MainSidebar } from '../components/MainSidebar.js';
 import { SegmentItem , SegmentItemOR } from '../components/listsAndSegment/SegmentItem.js';
 import { saveSegment } from '../actions/segmentActions.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faPlus} from '@fortawesome/free-solid-svg-icons';
+
 
 class createList extends Component {
     constructor(props){
@@ -26,7 +26,7 @@ class createList extends Component {
           modal: !this.state.modal
         })
       }
-    render() {
+      render() {
         return (
             <>
             <Container fluid={true}>
@@ -45,14 +45,47 @@ class createList extends Component {
                     </Row>
                     </div>
                     <hr/>
+                    <div id="segment-del" className="Card-Table" style={{padding:'30px'}}>
+                        <div className="Card-Table-Inner">
+                            <p>Give your list a name and we will add people to it.</p>
+                            <Form onSubmit={this.onSubmit}>
+                                <Row form>
+                                    <Col xs={8}>
+                                    <FormGroup>
+                                        <Label><strong>Name</strong></Label>
+                                        <Input bsSize="sm" type="text" name="segment_name" onChange={this.onChange}  />
+                                    </FormGroup>
+                                    </Col>
+                                    <Col xs={4}>
+                                    <FormGroup>
+                                        <Label><strong>Tag</strong></Label>
+                                        <Input bsSize="sm" type="select" name="campaignTag" disabled>
+                                            <option>Select tags...</option>
+
+                                        </Input>
+                                    </FormGroup>
+                                    </Col>
+                                </Row>
+                                
+                                                           
+                            </Form>
+                        </div>
+                        
                     </div>
-              </Col>
-             </Row>
-             <button className="btn primaryButton" onClick={this.toggle}>
-                  Create List
-                </button>
+                    <div class="list-buttons"></div>
+                    <Row>
+                    
+                    <div class="list-button"> <Button size="sm" color="light">Cancel</Button></div>
+                       
+                     <div class="list-button"><Button size="sm" color="primary" onClick={()=>{this.props.history.push('/list/create/listName')}}><strong>Create List >></strong></Button></div>   
+                    
+                </Row>
+                
+                </div>
+                </Col>
+                </Row>
+               
             </Container>
-            
             </>
         )
     }

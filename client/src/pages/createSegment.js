@@ -87,7 +87,7 @@ class createSegment extends Component {
                                     <Col xs={8}>
                                     <FormGroup>
                                         <Label><strong>Name</strong></Label>
-                                        <Input bsSize="sm" type="text" name="segment_name" onChange={this.onChange} placeholder="Enter Segment Name" />
+                                        <Input bsSize="sm" type="text" required name="segment_name" onChange={this.onChange} placeholder="Enter Segment Name" />
                                     </FormGroup>
                                     </Col>
                                     <Col xs={4}>

@@ -18,6 +18,7 @@
     
    #segment-del{
     font-family: 'Varela Round', sans-serif;
+    margin-bottom:5%;
     
    }
    .del{
@@ -63,4 +64,27 @@
    }
    .condition-6{
        display: inline-block;
+   }
+
+   .list-buttons{
+       background-color: #F2F4F5;
+       padding:16;
+       position: relative;
+       left:80%;
+       display: inline-block;
+   }
+   .list-button{
+       margin-right: 1%;
+       position: relative;
+       left:80%;
+       font-family: 'Varela Round', sans-serif;
+   }
+   a{
+       
+       text-decoration: none;
+       margin-right: 2%;
+   }
+   .links-div{
+       padding-left:5%;
+       color: black;
    }
